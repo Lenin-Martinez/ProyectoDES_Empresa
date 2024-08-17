@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using ProyectoDES_Empresa.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<EmpresaDBContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("EmpresaCN")));
 
 var app = builder.Build();
 
