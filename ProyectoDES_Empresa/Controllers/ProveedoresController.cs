@@ -55,7 +55,7 @@ namespace ProyectoDES_Empresa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Nombre")] Proveedor proveedor)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(proveedor);
                 await _context.SaveChangesAsync();
@@ -92,7 +92,7 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
