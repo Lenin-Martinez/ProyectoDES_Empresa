@@ -9,22 +9,23 @@ using ProyectoDES_Empresa.Models;
 
 namespace ProyectoDES_Empresa.Controllers
 {
-    public class EmpleadosController : Controller
+    public class ComprasController : Controller
     {
         private readonly EmpresaDBContext _context;
 
-        public EmpleadosController(EmpresaDBContext context)
+        public ComprasController(EmpresaDBContext context)
         {
             _context = context;
         }
 
-        // GET: Empleados
+        // GET: Compras
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Empleados.ToListAsync());
+            var empresaDBContext = _context.Compras.Include(c => c.Producto).Include(c => c.Proveedor);
+            return View(await empresaDBContext.ToListAsync());
         }
 
-        // GET: Empleados/Details/5
+        // GET: Compras/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,48 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados
+            var compra = await _context.Compras
+                .Include(c => c.Producto)
+                .Include(c => c.Proveedor)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (empleado == null)
+            if (compra == null)
             {
                 return NotFound();
             }
 
-            return View(empleado);
+            return View(compra);
         }
 
-        // GET: Empleados/Create
+        // GET: Compras/Create
         public IActionResult Create()
         {
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "Nombre");
+            ViewData["IdProveedor"] = new SelectList(_context.Proveedores, "ID", "Nombre");
             return View();
         }
 
-        // POST: Empleados/Create
+        // POST: Compras/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Nombre,Apellido,ComisionVenta")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind("ID,FechaCompra,IdProveedor,IdProducto,Unidades")] Compra compra)
         {
-            if (!ModelState.IsValid)
+            ModelState.Remove("Proveedor");
+            ModelState.Remove("Producto");
+
+            if (ModelState.IsValid)
             {
-                _context.Add(empleado);
+                _context.Add(compra);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleado);
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "Nombre", compra.IdProducto);
+            ViewData["IdProveedor"] = new SelectList(_context.Proveedores, "ID", "Nombre", compra.IdProveedor);
+            return View(compra);
         }
 
-        // GET: Empleados/Edit/5
+        // GET: Compras/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,36 +82,41 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados.FindAsync(id);
-            if (empleado == null)
+            var compra = await _context.Compras.FindAsync(id);
+            if (compra == null)
             {
                 return NotFound();
             }
-            return View(empleado);
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "Nombre", compra.IdProducto);
+            ViewData["IdProveedor"] = new SelectList(_context.Proveedores, "ID", "Nombre", compra.IdProveedor);
+            return View(compra);
         }
 
-        // POST: Empleados/Edit/5
+        // POST: Compras/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Nombre,Apellido,ComisionVenta")] Empleado empleado)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FechaCompra,IdProveedor,IdProducto,Unidades")] Compra compra)
         {
-            if (id != empleado.ID)
+            ModelState.Remove("Proveedor");
+            ModelState.Remove("Producto");
+
+            if (id != compra.ID)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(empleado);
+                    _context.Update(compra);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmpleadoExists(empleado.ID))
+                    if (!CompraExists(compra.ID))
                     {
                         return NotFound();
                     }
@@ -112,10 +127,12 @@ namespace ProyectoDES_Empresa.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleado);
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "Nombre", compra.IdProducto);
+            ViewData["IdProveedor"] = new SelectList(_context.Proveedores, "ID", "Nombre", compra.IdProveedor);
+            return View(compra);
         }
 
-        // GET: Empleados/Delete/5
+        // GET: Compras/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +140,36 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados
+            var compra = await _context.Compras
+                .Include(c => c.Producto)
+                .Include(c => c.Proveedor)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (empleado == null)
+            if (compra == null)
             {
                 return NotFound();
             }
 
-            return View(empleado);
+            return View(compra);
         }
 
-        // POST: Empleados/Delete/5
+        // POST: Compras/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var empleado = await _context.Empleados.FindAsync(id);
-            if (empleado != null)
+            var compra = await _context.Compras.FindAsync(id);
+            if (compra != null)
             {
-                _context.Empleados.Remove(empleado);
+                _context.Compras.Remove(compra);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmpleadoExists(int id)
+        private bool CompraExists(int id)
         {
-            return _context.Empleados.Any(e => e.ID == id);
+            return _context.Compras.Any(e => e.ID == id);
         }
     }
 }

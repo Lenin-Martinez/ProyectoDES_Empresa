@@ -9,22 +9,23 @@ using ProyectoDES_Empresa.Models;
 
 namespace ProyectoDES_Empresa.Controllers
 {
-    public class EmpleadosController : Controller
+    public class VentasController : Controller
     {
         private readonly EmpresaDBContext _context;
 
-        public EmpleadosController(EmpresaDBContext context)
+        public VentasController(EmpresaDBContext context)
         {
             _context = context;
         }
 
-        // GET: Empleados
+        // GET: Ventas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Empleados.ToListAsync());
+            var empresaDBContext = _context.Ventas.Include(v => v.Empleado).Include(v => v.Producto);
+            return View(await empresaDBContext.ToListAsync());
         }
 
-        // GET: Empleados/Details/5
+        // GET: Ventas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,48 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados
+            var venta = await _context.Ventas
+                .Include(v => v.Empleado)
+                .Include(v => v.Producto)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (empleado == null)
+            if (venta == null)
             {
                 return NotFound();
             }
 
-            return View(empleado);
+            return View(venta);
         }
 
-        // GET: Empleados/Create
+        // GET: Ventas/Create
         public IActionResult Create()
         {
+            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "Nombre");
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "Nombre");
             return View();
         }
 
-        // POST: Empleados/Create
+        // POST: Ventas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Nombre,Apellido,ComisionVenta")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind("ID,FechaVenta,IdProducto,Unidades,PrecioUnitario,PrecioTotal,IdEmpleado")] Venta venta)
         {
-            if (!ModelState.IsValid)
+            ModelState.Remove("Producto");
+            ModelState.Remove("Empleado");
+
+            if (ModelState.IsValid)
             {
-                _context.Add(empleado);
+                _context.Add(venta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleado);
+            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "Nombre", venta.IdEmpleado);
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "Nombre", venta.IdProducto);
+            return View(venta);
         }
 
-        // GET: Empleados/Edit/5
+        // GET: Ventas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,36 +82,41 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados.FindAsync(id);
-            if (empleado == null)
+            var venta = await _context.Ventas.FindAsync(id);
+            if (venta == null)
             {
                 return NotFound();
             }
-            return View(empleado);
+            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "Nombre", venta.IdEmpleado);
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "Nombre", venta.IdProducto);
+            return View(venta);
         }
 
-        // POST: Empleados/Edit/5
+        // POST: Ventas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Nombre,Apellido,ComisionVenta")] Empleado empleado)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FechaVenta,IdProducto,Unidades,PrecioUnitario,PrecioTotal,IdEmpleado")] Venta venta)
         {
-            if (id != empleado.ID)
+            ModelState.Remove("Producto");
+            ModelState.Remove("Empleado");
+
+            if (id != venta.ID)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(empleado);
+                    _context.Update(venta);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmpleadoExists(empleado.ID))
+                    if (!VentaExists(venta.ID))
                     {
                         return NotFound();
                     }
@@ -112,10 +127,12 @@ namespace ProyectoDES_Empresa.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleado);
+            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "Nombre", venta.IdEmpleado);
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "Nombre", venta.IdProducto);
+            return View(venta);
         }
 
-        // GET: Empleados/Delete/5
+        // GET: Ventas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +140,36 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados
+            var venta = await _context.Ventas
+                .Include(v => v.Empleado)
+                .Include(v => v.Producto)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (empleado == null)
+            if (venta == null)
             {
                 return NotFound();
             }
 
-            return View(empleado);
+            return View(venta);
         }
 
-        // POST: Empleados/Delete/5
+        // POST: Ventas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var empleado = await _context.Empleados.FindAsync(id);
-            if (empleado != null)
+            var venta = await _context.Ventas.FindAsync(id);
+            if (venta != null)
             {
-                _context.Empleados.Remove(empleado);
+                _context.Ventas.Remove(venta);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmpleadoExists(int id)
+        private bool VentaExists(int id)
         {
-            return _context.Empleados.Any(e => e.ID == id);
+            return _context.Ventas.Any(e => e.ID == id);
         }
     }
 }

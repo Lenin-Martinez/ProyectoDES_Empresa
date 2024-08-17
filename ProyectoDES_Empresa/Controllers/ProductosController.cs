@@ -9,22 +9,23 @@ using ProyectoDES_Empresa.Models;
 
 namespace ProyectoDES_Empresa.Controllers
 {
-    public class EmpleadosController : Controller
+    public class ProductosController : Controller
     {
         private readonly EmpresaDBContext _context;
 
-        public EmpleadosController(EmpresaDBContext context)
+        public ProductosController(EmpresaDBContext context)
         {
             _context = context;
         }
 
-        // GET: Empleados
+        // GET: Productos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Empleados.ToListAsync());
+            var empresaDBContext = _context.Productos.Include(p => p.Categoria);
+            return View(await empresaDBContext.ToListAsync());
         }
 
-        // GET: Empleados/Details/5
+        // GET: Productos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,44 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados
+            var producto = await _context.Productos
+                .Include(p => p.Categoria)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (empleado == null)
+            if (producto == null)
             {
                 return NotFound();
             }
 
-            return View(empleado);
+            return View(producto);
         }
 
-        // GET: Empleados/Create
+        // GET: Productos/Create
         public IActionResult Create()
         {
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "Nombre");
             return View();
         }
 
-        // POST: Empleados/Create
+        // POST: Productos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Nombre,Apellido,ComisionVenta")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind("ID,IdCategoria,Nombre,Descripcion,Unidades,Costo")] Producto producto)
         {
+            ModelState.Remove("Categoria");
+
             if (!ModelState.IsValid)
             {
-                _context.Add(empleado);
+                _context.Add(producto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleado);
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "Nombre", producto.IdCategoria);
+            return View(producto);
         }
 
-        // GET: Empleados/Edit/5
+        // GET: Productos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +78,25 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados.FindAsync(id);
-            if (empleado == null)
+            var producto = await _context.Productos.FindAsync(id);
+            if (producto == null)
             {
                 return NotFound();
             }
-            return View(empleado);
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "Nombre", producto.IdCategoria);
+            return View(producto);
         }
 
-        // POST: Empleados/Edit/5
+        // POST: Productos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Nombre,Apellido,ComisionVenta")] Empleado empleado)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,IdCategoria,Nombre,Descripcion,Unidades,Costo")] Producto producto)
         {
-            if (id != empleado.ID)
+            ModelState.Remove("Categoria");
+
+            if (id != producto.ID)
             {
                 return NotFound();
             }
@@ -96,12 +105,12 @@ namespace ProyectoDES_Empresa.Controllers
             {
                 try
                 {
-                    _context.Update(empleado);
+                    _context.Update(producto);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmpleadoExists(empleado.ID))
+                    if (!ProductoExists(producto.ID))
                     {
                         return NotFound();
                     }
@@ -112,10 +121,11 @@ namespace ProyectoDES_Empresa.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleado);
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "Nombre", producto.IdCategoria);
+            return View(producto);
         }
 
-        // GET: Empleados/Delete/5
+        // GET: Productos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +133,35 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleados
+            var producto = await _context.Productos
+                .Include(p => p.Categoria)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (empleado == null)
+            if (producto == null)
             {
                 return NotFound();
             }
 
-            return View(empleado);
+            return View(producto);
         }
 
-        // POST: Empleados/Delete/5
+        // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var empleado = await _context.Empleados.FindAsync(id);
-            if (empleado != null)
+            var producto = await _context.Productos.FindAsync(id);
+            if (producto != null)
             {
-                _context.Empleados.Remove(empleado);
+                _context.Productos.Remove(producto);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmpleadoExists(int id)
+        private bool ProductoExists(int id)
         {
-            return _context.Empleados.Any(e => e.ID == id);
+            return _context.Productos.Any(e => e.ID == id);
         }
     }
 }

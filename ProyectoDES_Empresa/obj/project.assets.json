@@ -7853,19 +7853,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LMartinez\\.nuget\\packages\\": {}
+    "C:\\Users\\erika\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Universidad\\DES_Teo\\ProyectoDES\\Lenin\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
+      "projectUniqueName": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa_Erika\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
       "projectName": "ProyectoDES_Empresa",
-      "projectPath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\Lenin\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
-      "packagesPath": "C:\\Users\\LMartinez\\.nuget\\packages\\",
-      "outputPath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\Lenin\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\obj\\",
+      "projectPath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa_Erika\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
+      "packagesPath": "C:\\Users\\erika\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa_Erika\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\LMartinez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\erika\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7873,6 +7873,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -7934,7 +7935,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
