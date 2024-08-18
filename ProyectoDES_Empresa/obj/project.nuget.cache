@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "49fjhXM7uYLhdAseeIqD0QFTsPu1RwUTOceA0x6/nFSawSs4SU4c1J0+eUwGEOdxSe/Pk/unG7PhkNfSglIPwg==",
+  "dgSpecHash": "EUvaAS23UxZDmnYuUSY7DDavE5zTUYnJSorpxQ3Y1y6kaAUteXUHnNHip0fPC2GdKuACbneGWbV8ysp3MKZr2g==",
   "success": true,
-  "projectFilePath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
+  "projectFilePath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\Lenin\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LMartinez\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\LMartinez\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

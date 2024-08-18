@@ -53,9 +53,9 @@ namespace ProyectoDES_Empresa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NombreEmpleado,ApellidoEmpleado,ComisionVentaEmpleado")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind("ID,Nombre,Apellido,ComisionVenta")] Empleado empleado)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(empleado);
                 await _context.SaveChangesAsync();
@@ -85,14 +85,14 @@ namespace ProyectoDES_Empresa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NombreEmpleado,ApellidoEmpleado,ComisionVentaEmpleado")] Empleado empleado)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Nombre,Apellido,ComisionVenta")] Empleado empleado)
         {
             if (id != empleado.ID)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
