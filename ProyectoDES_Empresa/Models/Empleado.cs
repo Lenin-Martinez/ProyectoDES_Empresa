@@ -3,11 +3,8 @@
     public class Empleado
     {
         public int ID { get; set; }
-        public string NombreEmpleado { get; set; }
-        public string ApellidoEmpleado { get; set; }
-        public decimal ComisionVentaEmpleado { get; set; }
-
-        //Propiedad de navegacion
-        public ICollection<Venta> Ventas { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public decimal ComisionVenta { get; set; }
     }
 }

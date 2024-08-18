@@ -5,9 +5,9 @@ USE BD_EMPRESA
 CREATE TABLE Empleados
 (
 	ID INT IDENTITY(1,1),
-	NombreEmpleado VARCHAR(100),
-	ApellidoEmpleado VARCHAR(100),
-	ComisionVentaEmpleado DECIMAL
+	Nombre VARCHAR(100),
+	Apellido VARCHAR(100),
+	ComisionVenta DECIMAL
 
 	CONSTRAINT PK_EMPLEADOS PRIMARY KEY (ID)
 );
@@ -15,7 +15,7 @@ CREATE TABLE Empleados
 CREATE TABLE Proveedores
 (
 	ID INT IDENTITY(1,1),
-	NombreProveedor VARCHAR(100)
+	Nombre VARCHAR(100)
 
 	CONSTRAINT PK_PROVEEDORES PRIMARY KEY (ID)
 );
@@ -23,8 +23,8 @@ CREATE TABLE Proveedores
 CREATE TABLE Categorias
 (
 	ID INT IDENTITY(1,1),
-	NombreCategoria VARCHAR(100),
-	DescripcionCategoria VARCHAR(200)
+	Nombre VARCHAR(100),
+	Descripcion VARCHAR(200)
 
 	CONSTRAINT PK_CATEGORIAS PRIMARY KEY (ID)
 );
@@ -33,10 +33,10 @@ CREATE TABLE Productos
 (
 	ID INT IDENTITY(1,1),
 	IdCategoria INT,
-	NombreProducto VARCHAR(100),
-	DescripcionProducto VARCHAR(200),
-	UnidadesProducto INT,
-	CostoProducto DECIMAL
+	Nombre VARCHAR(100),
+	Descripcion VARCHAR(200),
+	Unidades INT,
+	Costo DECIMAL
 
 	CONSTRAINT PK_PRODUCTOS PRIMARY KEY (ID)
 	CONSTRAINT FK_PRODUCTOS_CATEGORIAS FOREIGN KEY (IdCategoria) REFERENCES Categorias(ID)
@@ -48,7 +48,7 @@ CREATE TABLE Compras
 	FechaCompra DATE,
 	IdProveedor INT,
 	IdProducto INT,
-	UnidadesCompra INT
+	Unidades INT
 	
 	CONSTRAINT PK_COMPRAS PRIMARY KEY (ID)
 	CONSTRAINT FK_COMPRAS_PROVEEDORES FOREIGN KEY (IdProveedor) REFERENCES Proveedores(ID),
@@ -60,9 +60,9 @@ CREATE TABLE Ventas
 	ID INT IDENTITY(1,1),
 	FechaVenta DATE,
 	IdProducto INT,
-	UnidadesVenta INT,
-	PrecioUnitarioVenta DECIMAL,
-	PrecioTotalVenta DECIMAL,
+	Unidades INT,
+	PrecioUnitario DECIMAL,
+	PrecioTotal DECIMAL,
 	IdEmpleado INT
 	
 	CONSTRAINT PK_VENTAS PRIMARY KEY (ID),

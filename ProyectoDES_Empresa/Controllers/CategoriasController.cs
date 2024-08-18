@@ -53,9 +53,9 @@ namespace ProyectoDES_Empresa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NombreCategoria,DescripcionCategoria")] Categoria categoria)
+        public async Task<IActionResult> Create([Bind("ID,Nombre,Descripcion")] Categoria categoria)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(categoria);
                 await _context.SaveChangesAsync();
@@ -85,14 +85,14 @@ namespace ProyectoDES_Empresa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NombreCategoria,DescripcionCategoria")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Nombre,Descripcion")] Categoria categoria)
         {
             if (id != categoria.ID)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
