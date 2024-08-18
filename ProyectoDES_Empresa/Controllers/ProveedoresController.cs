@@ -53,7 +53,7 @@ namespace ProyectoDES_Empresa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Nombre")] Proveedor proveedor)
+        public async Task<IActionResult> Create([Bind("ID,NombreProveedor")] Proveedor proveedor)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace ProyectoDES_Empresa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Nombre")] Proveedor proveedor)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,NombreProveedor")] Proveedor proveedor)
         {
             if (id != proveedor.ID)
             {
