@@ -1,7 +1,7 @@
 # ProyectoDES_Empresa
 
 * Autores:
-	- Erika Alondra Marroquin Echegoyen - ME180105 - DES104 - 02T
+	- Erika Alondra Marroquin Echegoyen - ME180102 - DES104 - 02T
 	- Lenin Steven Martinez Huezo - MH180095 - DES104 - 02T
 	- Jonathan Omar Diaz Reyes - DR160475 - DSE104 - 02T
 
