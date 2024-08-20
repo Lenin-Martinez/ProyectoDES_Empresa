@@ -21,7 +21,7 @@ namespace ProyectoDES_Empresa.Models
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [StringLength(200, ErrorMessage = "La descripcion debe tener un maximo de 200 caracteres")]
-        [Display(Name = "Descripcion del producto")]
+        [Display(Name = "Descripcion de producto")]
         public string DescripcionProducto { get; set; }
 
 
@@ -31,7 +31,6 @@ namespace ProyectoDES_Empresa.Models
 
 
         [Required(ErrorMessage = "Este campo es requerido")]
-        [Column(TypeName = "decimal(18,2)")]
         [Display(Name = "Costo del producto ($)")]
         public decimal CostoProducto { get; set; }
 

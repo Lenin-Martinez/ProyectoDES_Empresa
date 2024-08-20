@@ -26,13 +26,11 @@ namespace ProyectoDES_Empresa.Models
 
 
         [Required(ErrorMessage = "Este campo es requerido")]
-        [Column(TypeName = "decimal(18,2)")]
         [Display(Name = "Costo del producto ($)")]
         public decimal PrecioUnitarioVenta { get; set; }
 
 
         [Required(ErrorMessage = "Este campo es requerido")]
-        [Column(TypeName = "decimal(18,2)")]
         [Display(Name = "Valor total ($)")]
         public decimal PrecioTotalVenta { get; set; }
 
