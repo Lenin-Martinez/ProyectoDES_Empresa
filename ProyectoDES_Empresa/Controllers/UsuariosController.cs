@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace ProyectoDES_Empresa.Controllers
 {
@@ -31,34 +32,49 @@ namespace ProyectoDES_Empresa.Controllers
         [HttpPost]
         public async Task<IActionResult> Registrar(UsuarioVM usuariovm)
         {
-            if (usuariovm.ClaveUsuario != usuariovm.ConfirmarClaveUsuario)
+            Usuario? usuario_encontrado = await _context.Usuarios
+            .Where(u => u.CorreoUsuario == usuariovm.CorreoUsuario)
+                .FirstOrDefaultAsync();
+
+            if (usuario_encontrado == null)
             {
-                ViewData["Mensaje"] = "Las contraseñas no coinciden";
+                if (usuariovm.ClaveUsuario != usuariovm.ConfirmarClaveUsuario)
+                {
+                    ViewData["Mensaje"] = "Las contraseñas no coinciden";
+                }
+                else
+                {
+
+                    //Si coinciden se creara un nuevo usuario
+                    Usuario usuario = new Usuario()
+                    {
+                        CorreoUsuario = usuariovm.CorreoUsuario,
+                        ClaveUsuario = usuariovm.ClaveUsuario
+                    };
+
+                    await _context.Usuarios.AddAsync(usuario);
+                    await _context.SaveChangesAsync();
+
+
+                    if (usuario.ID != 0)
+                    {
+                        ViewData["Mensaje"] = "Ingreso Exitoso";
+                    }
+                    else
+                    {
+                        ViewData["Mensaje"] = "Error al registar usuario";
+                    }
+
+                }
+                return View();
             }
             else
             {
-
-                //Si coinciden se creara un nuevo usuario
-                Usuario usuario = new Usuario()
-                {
-                    CorreoUsuario = usuariovm.CorreoUsuario,
-                    ClaveUsuario = usuariovm.ClaveUsuario
-                };
-
-                await _context.Usuarios.AddAsync(usuario);
-                await _context.SaveChangesAsync();
-
-
-                if (usuario.ID != 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
-                ViewData["Mensaje"] = "Error al registar usuario";
-
-
+                ViewData["Mensaje"] = "El correo brindado ya posee cuenta registrada";
             }
+
             return View();
+            
         }
 
 

@@ -5,12 +5,40 @@
       "PackagePath": "staticwebassets\\ProyectoDES_Empresa.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\Create.css",
+      "PackagePath": "staticwebassets\\css\\Create.css"
+    },
+    {
       "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\EstiloMenu.css",
       "PackagePath": "staticwebassets\\css\\EstiloMenu.css"
     },
     {
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\Index.css",
+      "PackagePath": "staticwebassets\\css\\Index.css"
+    },
+    {
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\categoria.png",
+      "PackagePath": "staticwebassets\\css\\img\\categoria.png"
+    },
+    {
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\compra.png",
+      "PackagePath": "staticwebassets\\css\\img\\compra.png"
+    },
+    {
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\empleado.png",
+      "PackagePath": "staticwebassets\\css\\img\\empleado.png"
+    },
+    {
       "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\inventario.png",
       "PackagePath": "staticwebassets\\css\\img\\inventario.png"
+    },
+    {
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\proveedor.png",
+      "PackagePath": "staticwebassets\\css\\img\\proveedor.png"
+    },
+    {
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\venta.png",
+      "PackagePath": "staticwebassets\\css\\img\\venta.png"
     },
     {
       "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\site.css",
