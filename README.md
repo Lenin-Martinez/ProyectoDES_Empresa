@@ -1,9 +1,9 @@
 # ProyectoDES_Empresa
 
 * Autores:
-	- Erika Alondra Marroquin Echegoyen - ME180105 - DES104
-	- Lenin Steven Martinez Huezo - MH180095 - DES104
-	- Jonathan Omar Diaz Reyes - DR160475 - DSE104
+	- Erika Alondra Marroquin Echegoyen - ME180105 - DES104 - 02T
+	- Lenin Steven Martinez Huezo - MH180095 - DES104 - 02T
+	- Jonathan Omar Diaz Reyes - DR160475 - DSE104 - 02T
 
 * Descripcion:
 La aplicacion web "ProyectoDES_Empresa", es un gestor de inventarios asi como el registro de compras y ventas asociadas a productos, contando con el almacenamiento de los productos por categorias, asi tambien, dispone de la gestion de los proveedores y la administracion de los empleados para contemplar el porcentaje de ganancia sobre la venta que dicho vendedor ha realizado.
