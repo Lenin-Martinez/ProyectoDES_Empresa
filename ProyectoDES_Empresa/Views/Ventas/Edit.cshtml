@@ -1,59 +1,98 @@
 ﻿@model ProyectoDES_Empresa.Models.Venta
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Edit</h1>
+<html>
+<head>
+    <title>Modificar Registro de Venta</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="~/css/Create.css" />
 
-<h4>Venta</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <label asp-for="FechaVenta" class="control-label"></label>
-                <input asp-for="FechaVenta" class="form-control" />
-                <span asp-validation-for="FechaVenta" class="text-danger"></span>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <h3> MODIFICAR VENTAS</h3>
+        </div>
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-area="" asp-controller="Ventas" asp-action="Index">Ver Ventas Registradas </a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Modificar Registro de Venta</li>
+                    </ol>
+                </nav>
             </div>
-            <div class="form-group">
-                <label asp-for="IdProducto" class="control-label"></label>
-                <select asp-for="IdProducto" class="form-control" asp-items="ViewBag.IdProducto"></select>
-                <span asp-validation-for="IdProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UnidadesVenta" class="control-label"></label>
-                <input asp-for="UnidadesVenta" class="form-control" />
-                <span asp-validation-for="UnidadesVenta" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecioUnitarioVenta" class="control-label"></label>
-                <input asp-for="PrecioUnitarioVenta" class="form-control" />
-                <span asp-validation-for="PrecioUnitarioVenta" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecioTotalVenta" class="control-label"></label>
-                <input asp-for="PrecioTotalVenta" class="form-control" />
-                <span asp-validation-for="PrecioTotalVenta" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdEmpleado" class="control-label"></label>
-                <select asp-for="IdEmpleado" class="form-control" asp-items="ViewBag.IdEmpleado"></select>
-                <span asp-validation-for="IdEmpleado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fa fa-envelope"></i> Ingrese la nueva información de la venta
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="ID" />
+                            <div class="form-group">
+                                <label asp-for="FechaVenta" class="control-label"></label>
+                                <input asp-for="FechaVenta" class="form-control" />
+                                <span asp-validation-for="FechaVenta" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="IdProducto" class="control-label"></label>
+                                <select asp-for="IdProducto" class="form-control" asp-items="ViewBag.IdProducto"></select>
+                                <span asp-validation-for="IdProducto" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="UnidadesVenta" class="control-label"></label>
+                                <input asp-for="UnidadesVenta" class="form-control" />
+                                <span asp-validation-for="UnidadesVenta" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PrecioUnitarioVenta" class="control-label"></label>
+                                <input asp-for="PrecioUnitarioVenta" class="form-control" />
+                                <span asp-validation-for="PrecioUnitarioVenta" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PrecioTotalVenta" class="control-label"></label>
+                                <input asp-for="PrecioTotalVenta" class="form-control" />
+                                <span asp-validation-for="PrecioTotalVenta" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="IdEmpleado" class="control-label"></label>
+                                <select asp-for="IdEmpleado" class="form-control" asp-items="ViewBag.IdEmpleado"></select>
+                                <span asp-validation-for="IdEmpleado" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
