@@ -1,5 +1,9 @@
 ﻿@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
+html {
+    background: #eee !important;
+}
+
 #team {
     background: #eee !important;
 }
@@ -19,16 +23,21 @@
 }
 
 section {
-    padding: 60px 0;
+    padding: 20px 0;
 }
 
     section .section-title {
         text-align: center;
         color: #007b5e;
-        margin-bottom: 50px;
         text-transform: uppercase;
     }
 
+.menu {
+    text-align: center;
+    color: #979797;
+    margin-bottom: 30px;
+/*    text-transform: uppercase;
+*/}
 #team .card {
     border: none;
     background: #ffffff;
@@ -70,7 +79,7 @@ section {
     -webkit-transform: rotateY(0deg);
     -ms-transform: rotateY(0deg);
     z-index: 2;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .backside {

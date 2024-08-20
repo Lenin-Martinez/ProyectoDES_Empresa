@@ -1,14 +1,32 @@
 ﻿@model IEnumerable<ProyectoDES_Empresa.Models.Empleado>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Listado";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+<html>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="~/css/Create.css" />
+    <link rel="stylesheet" href="~/css/Index.css" />
+
+</head>
+<body>
+    <div class="container">
+        <h3>REGISTRO DE EMPLEADOS</h3>
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-area="" asp-controller="Empleados" asp-action="Create">Registrar nuevo empleado </a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Listado de Empleados</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
 <table class="table">
     <thead>
         <tr>
@@ -21,7 +39,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ComisionVentaEmpleado)
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -36,12 +54,25 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ComisionVentaEmpleado)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                        <td>
+                            <button class="btn btn-info btn-pressure btn-sensitive">
+                                <a asp-action="Edit" asp-route-id="@item.ID">Editar</a>
+                            </button>
+                            <button class="btn btn-success">
+                                <a asp-action="Details" asp-route-id="@item.ID">Detalles</a>
+                            </button>
+                            <button class="btn btn-danger">
+                                <a asp-action="Delete" asp-route-id="@item.ID">Eliminar</a>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
+
