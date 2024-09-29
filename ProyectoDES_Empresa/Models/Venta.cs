@@ -26,12 +26,12 @@ namespace ProyectoDES_Empresa.Models
 
 
         [Required(ErrorMessage = "Este campo es requerido")]
-        [Display(Name = "Costo del producto ($)")]
+        [Display(Name = "Precio venta unitario ($)")]
         public decimal PrecioUnitarioVenta { get; set; }
 
 
         [Required(ErrorMessage = "Este campo es requerido")]
-        [Display(Name = "Valor total ($)")]
+        [Display(Name = "Valor venta total ($)")]
         public decimal PrecioTotalVenta { get; set; }
 
         [ForeignKey("Empleado")]

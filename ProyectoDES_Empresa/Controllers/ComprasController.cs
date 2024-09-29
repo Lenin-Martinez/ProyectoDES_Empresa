@@ -23,7 +23,10 @@ namespace ProyectoDES_Empresa.Controllers
         // GET: Compras
         public async Task<IActionResult> Index()
         {
-            var empresaDBContext = _context.Compras.Include(c => c.Producto).Include(c => c.Proveedor);
+            var empresaDBContext = _context.Compras
+                .Include(c => c.Producto)
+                .Include(c => c.Producto.Categoria)
+                .Include(c => c.Proveedor);
             return View(await empresaDBContext.ToListAsync());
         }
 
@@ -37,6 +40,7 @@ namespace ProyectoDES_Empresa.Controllers
 
             var compra = await _context.Compras
                 .Include(c => c.Producto)
+                .Include(c => c.Producto.Categoria)
                 .Include(c => c.Proveedor)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (compra == null)
@@ -56,6 +60,7 @@ namespace ProyectoDES_Empresa.Controllers
             //Carga los datos de los formularios parciales agregados
             ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria");
             return View();
+
         }
 
         // POST: Compras/Create
@@ -67,6 +72,7 @@ namespace ProyectoDES_Empresa.Controllers
             [Bind("ID,IdCategoria,NombreProducto,DescripcionProducto,UnidadesProducto,CostoProducto")] Producto producto,
             [Bind("ID,FechaCompra,IdProveedor,IdProducto,UnidadesCompra")] Compra compra)
         {
+            //Registra la compra
             ModelState.Remove("Proveedor");
             ModelState.Remove("Producto");
 
@@ -78,16 +84,38 @@ namespace ProyectoDES_Empresa.Controllers
             }
             else
             {
-                _context.Add(producto);
-                await _context.SaveChangesAsync();
+                // Verificar si el producto ya existe con todos los atributos
+                var existingProduct = _context.Productos
+                    .FirstOrDefault(p => p.NombreProducto == producto.NombreProducto &&
+                                         p.IdCategoria == producto.IdCategoria &&
+                                         p.DescripcionProducto == producto.DescripcionProducto &&
+                                         p.CostoProducto == producto.CostoProducto);
 
-                compra.IdProducto = producto.ID;
-                compra.UnidadesCompra = producto.UnidadesProducto;
+                if (existingProduct != null)
+                {
+                    // Si el producto ya existe, sumar las unidades
+                    existingProduct.UnidadesProducto += producto.UnidadesProducto;
+                    _context.Update(existingProduct);
+
+                    // Actualizar la compra con el ID del producto existente
+                    compra.IdProducto = existingProduct.ID;
+                    compra.UnidadesCompra = producto.UnidadesProducto;
+                }
+                else
+                {
+                    // Si el producto no existe, lo agrega como nuevo
+                    _context.Add(producto);
+                    await _context.SaveChangesAsync();
+
+                    compra.IdProducto = producto.ID;
+                    compra.UnidadesCompra = producto.UnidadesProducto;
+                }
 
                 _context.Add(compra);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
         }
 
         // GET: Compras/Edit/5
@@ -158,6 +186,7 @@ namespace ProyectoDES_Empresa.Controllers
 
             var compra = await _context.Compras
                 .Include(c => c.Producto)
+                .Include(c => c.Producto.Categoria)
                 .Include(c => c.Proveedor)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (compra == null)

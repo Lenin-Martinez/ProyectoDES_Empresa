@@ -64,12 +64,32 @@ namespace ProyectoDES_Empresa.Controllers
 
             if (!ModelState.IsValid)
             {
-                _context.Add(producto);
+                // Verificar si el producto ya existe con todos los atributos
+                var existingProduct = _context.Productos
+                    .FirstOrDefault(p => p.NombreProducto == producto.NombreProducto &&
+                                         p.IdCategoria == producto.IdCategoria &&
+                                         p.DescripcionProducto == producto.DescripcionProducto &&
+                                         p.CostoProducto == producto.CostoProducto);
+
+                if (existingProduct != null)
+                {
+                    // Si el producto ya existe, suma las unidades
+                    existingProduct.UnidadesProducto += producto.UnidadesProducto;
+                    _context.Update(existingProduct);
+                }
+                else
+                {
+                    // Si el producto no existe, lo agrega como nuevo
+                    _context.Add(producto);
+                }
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria", producto.IdCategoria);
             return View(producto);
+
         }
 
         // GET: Productos/Edit/5
