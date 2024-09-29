@@ -23,7 +23,10 @@ namespace ProyectoDES_Empresa.Controllers
         // GET: Ventas
         public async Task<IActionResult> Index()
         {
-            var empresaDBContext = _context.Ventas.Include(v => v.Empleado).Include(v => v.Producto);
+            var empresaDBContext = _context.Ventas
+                .Include(v => v.Empleado)
+                .Include(v => v.Producto)
+                .Include(v => v.Producto.Categoria);
             return View(await empresaDBContext.ToListAsync());
         }
 
@@ -38,6 +41,7 @@ namespace ProyectoDES_Empresa.Controllers
             var venta = await _context.Ventas
                 .Include(v => v.Empleado)
                 .Include(v => v.Producto)
+                .Include(v => v.Producto.Categoria)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (venta == null)
             {
@@ -50,8 +54,17 @@ namespace ProyectoDES_Empresa.Controllers
         // GET: Ventas/Create
         public IActionResult Create()
         {
+            var productos = _context.Productos
+            .Include(p => p.Categoria) 
+            .Select(p => new
+            {
+                p.ID,
+                NombreCompleto = p.Categoria.NombreCategoria + " - " + p.NombreProducto
+            })
+            .ToList();
+
             ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado");
-            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "NombreProducto");
+            ViewData["IdProducto"] = new SelectList(productos, "ID", "NombreCompleto");
             return View();
         }
 
@@ -67,10 +80,27 @@ namespace ProyectoDES_Empresa.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(venta);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Obtener el producto correspondiente a la venta
+                var producto = await _context.Productos.FindAsync(venta.IdProducto);
+
+                if (producto != null && venta.UnidadesVenta <= producto.UnidadesProducto)
+                {
+                    // Restar las unidades vendidas de las unidades existentes
+                    producto.UnidadesProducto -= venta.UnidadesVenta;
+                    _context.Update(producto);
+
+                    // Agregar la venta
+                    _context.Add(venta);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // Si no hay suficientes unidades, muestra un mensaje de error
+                    ModelState.AddModelError("", "No hay suficientes unidades del producto para realizar la venta.");
+                }
             }
+
             ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdEmpleado);
             ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "NombreProducto", venta.IdProducto);
             return View(venta);
@@ -89,8 +119,18 @@ namespace ProyectoDES_Empresa.Controllers
             {
                 return NotFound();
             }
+
+            var productos = _context.Productos
+                .Include(p => p.Categoria) 
+                .Select(p => new
+                {
+                    p.ID,
+                    NombreCompleto = p.Categoria.NombreCategoria + " - " + p.NombreProducto
+                })
+                .ToList();
+
             ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdEmpleado);
-            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "NombreProducto", venta.IdProducto);
+            ViewData["IdProducto"] = new SelectList(productos, "ID", "NombreCompleto", venta.IdProducto);
             return View(venta);
         }
 
@@ -145,6 +185,7 @@ namespace ProyectoDES_Empresa.Controllers
             var venta = await _context.Ventas
                 .Include(v => v.Empleado)
                 .Include(v => v.Producto)
+                .Include(v => v.Producto.Categoria)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (venta == null)
             {

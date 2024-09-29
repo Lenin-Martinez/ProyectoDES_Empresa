@@ -27,7 +27,7 @@
             @Html.DisplayNameFor(model => model.Producto)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Producto.NombreProducto)
+            @Html.DisplayFor(model => model.Producto.Categoria.NombreCategoria) - @Html.DisplayFor(model => model.Producto.NombreProducto)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UnidadesCompra)

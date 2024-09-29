@@ -56,7 +56,7 @@
                 @Html.DisplayFor(modelItem => item.FechaVenta)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Producto.NombreProducto)
+                @Html.DisplayFor(modelItem => item.Producto.Categoria.NombreCategoria) - @Html.DisplayFor(modelItem => item.Producto.NombreProducto)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UnidadesVenta)
