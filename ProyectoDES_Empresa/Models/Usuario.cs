@@ -12,5 +12,9 @@ namespace ProyectoDES_Empresa.Models
 
         [Required(ErrorMessage = "Este campo es requerido")]
         public string ClaveUsuario { get; set; }
+
+        [ForeignKey("Rol")]
+        public int? IdRol { get; set; }
+        public Rol Rol { get; set; }
     }
 }

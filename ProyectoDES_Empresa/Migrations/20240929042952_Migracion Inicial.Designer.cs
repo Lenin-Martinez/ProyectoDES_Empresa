@@ -12,8 +12,8 @@ using ProyectoDES_Empresa.Models;
 namespace ProyectoDES_Empresa.Migrations
 {
     [DbContext(typeof(EmpresaDBContext))]
-    [Migration("20240820180355_Migracion_Inicial")]
-    partial class Migracion_Inicial
+    [Migration("20240929042952_Migracion Inicial")]
+    partial class MigracionInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,11 +34,13 @@ namespace ProyectoDES_Empresa.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("DescripcionCategoria")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("NombreCategoria")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ID");
 
@@ -140,14 +142,16 @@ namespace ProyectoDES_Empresa.Migrations
 
                     b.Property<string>("ApellidoEmpleado")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("ComisionVentaEmpleado")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("NombreEmpleado")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ID");
 
@@ -204,14 +208,16 @@ namespace ProyectoDES_Empresa.Migrations
 
                     b.Property<string>("DescripcionProducto")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("IdCategoria")
                         .HasColumnType("int");
 
                     b.Property<string>("NombreProducto")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("UnidadesProducto")
                         .HasColumnType("int");
@@ -280,7 +286,8 @@ namespace ProyectoDES_Empresa.Migrations
 
                     b.Property<string>("NombreProveedor")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ID");
 
@@ -314,6 +321,35 @@ namespace ProyectoDES_Empresa.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ProyectoDES_Empresa.Models.Rol", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("NombreRol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            NombreRol = "Admin"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            NombreRol = "Usuario"
+                        });
+                });
+
             modelBuilder.Entity("ProyectoDES_Empresa.Models.Usuario", b =>
                 {
                     b.Property<int>("ID")
@@ -330,7 +366,12 @@ namespace ProyectoDES_Empresa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("IdRol")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("IdRol");
 
                     b.ToTable("Usuarios");
 
@@ -339,19 +380,15 @@ namespace ProyectoDES_Empresa.Migrations
                         {
                             ID = 1,
                             ClaveUsuario = "1234",
-                            CorreoUsuario = "lenin@hotmail.com"
+                            CorreoUsuario = "admin@hotmail.com",
+                            IdRol = 1
                         },
                         new
                         {
                             ID = 2,
                             ClaveUsuario = "1234",
-                            CorreoUsuario = "omar@hotmail.com"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            ClaveUsuario = "1234",
-                            CorreoUsuario = "erika@hotmail.com"
+                            CorreoUsuario = "lenin@hotmail.com",
+                            IdRol = 2
                         });
                 });
 
@@ -464,6 +501,15 @@ namespace ProyectoDES_Empresa.Migrations
                         .HasForeignKey("IdCategoria");
 
                     b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("ProyectoDES_Empresa.Models.Usuario", b =>
+                {
+                    b.HasOne("ProyectoDES_Empresa.Models.Rol", "Rol")
+                        .WithMany()
+                        .HasForeignKey("IdRol");
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("ProyectoDES_Empresa.Models.Venta", b =>
