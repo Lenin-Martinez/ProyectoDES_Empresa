@@ -8,27 +8,27 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
+
 namespace ProyectoDES_Empresa.Controllers
 {
-        
     public class UsuariosController : Controller
     {
         private readonly EmpresaDBContext _context;
-
         public UsuariosController(EmpresaDBContext context)
         {
             _context = context;
         }
 
-        [Authorize]
 
+        //Regitrar usuarios.
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Registrar()
         {
             return View();
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Registrar(UsuarioVM usuariovm)
         {
@@ -49,7 +49,9 @@ namespace ProyectoDES_Empresa.Controllers
                     Usuario usuario = new Usuario()
                     {
                         CorreoUsuario = usuariovm.CorreoUsuario,
-                        ClaveUsuario = usuariovm.ClaveUsuario
+                        ClaveUsuario = usuariovm.ClaveUsuario,
+                        IdRol = 2
+
                     };
 
                     await _context.Usuarios.AddAsync(usuario);
@@ -74,7 +76,7 @@ namespace ProyectoDES_Empresa.Controllers
             }
 
             return View();
-            
+
         }
 
 
@@ -89,6 +91,7 @@ namespace ProyectoDES_Empresa.Controllers
         public async Task<IActionResult> Login(LoginVM loginvm)
         {
             Usuario? usuario_encontrado = await _context.Usuarios
+                .Include(u => u.Rol)
                 .Where(u => u.CorreoUsuario == loginvm.CorreoUsuario && u.ClaveUsuario == loginvm.ClaveUsuario)
                 .FirstOrDefaultAsync();
 
@@ -103,7 +106,8 @@ namespace ProyectoDES_Empresa.Controllers
 
                 List<Claim> claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.Email, usuario_encontrado.CorreoUsuario)
+                    new Claim(ClaimTypes.Email, usuario_encontrado.CorreoUsuario),
+                    new Claim(ClaimTypes.Role, usuario_encontrado.Rol.NombreRol)
                 };
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

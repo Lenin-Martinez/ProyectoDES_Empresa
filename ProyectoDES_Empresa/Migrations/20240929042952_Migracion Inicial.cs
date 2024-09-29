@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProyectoDES_Empresa.Migrations
 {
     /// <inheritdoc />
-    public partial class Migracion_Inicial : Migration
+    public partial class MigracionInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,8 +19,8 @@ namespace ProyectoDES_Empresa.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreCategoria = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DescripcionCategoria = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    NombreCategoria = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DescripcionCategoria = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,8 +33,8 @@ namespace ProyectoDES_Empresa.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreEmpleado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApellidoEmpleado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NombreEmpleado = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ApellidoEmpleado = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ComisionVentaEmpleado = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -48,7 +48,7 @@ namespace ProyectoDES_Empresa.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreProveedor = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    NombreProveedor = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,17 +56,16 @@ namespace ProyectoDES_Empresa.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuarios",
+                name: "Roles",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CorreoUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClaveUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    NombreRol = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.ID);
+                    table.PrimaryKey("PK_Roles", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,8 +75,8 @@ namespace ProyectoDES_Empresa.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdCategoria = table.Column<int>(type: "int", nullable: true),
-                    NombreProducto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DescripcionProducto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NombreProducto = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DescripcionProducto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     UnidadesProducto = table.Column<int>(type: "int", nullable: false),
                     CostoProducto = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
@@ -88,6 +87,26 @@ namespace ProyectoDES_Empresa.Migrations
                         name: "FK_Productos_Categorias_IdCategoria",
                         column: x => x.IdCategoria,
                         principalTable: "Categorias",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CorreoUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClaveUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdRol = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Roles_IdRol",
+                        column: x => x.IdRol,
+                        principalTable: "Roles",
                         principalColumn: "ID");
                 });
 
@@ -179,13 +198,12 @@ namespace ProyectoDES_Empresa.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Usuarios",
-                columns: new[] { "ID", "ClaveUsuario", "CorreoUsuario" },
+                table: "Roles",
+                columns: new[] { "ID", "NombreRol" },
                 values: new object[,]
                 {
-                    { 1, "1234", "lenin@hotmail.com" },
-                    { 2, "1234", "omar@hotmail.com" },
-                    { 3, "1234", "erika@hotmail.com" }
+                    { 1, "Admin" },
+                    { 2, "Usuario" }
                 });
 
             migrationBuilder.InsertData(
@@ -198,6 +216,15 @@ namespace ProyectoDES_Empresa.Migrations
                     { 3, 124.99m, "Pintura para exteriores blanca", 1, "Pintura blanca", 100 },
                     { 4, 124.99m, "Pintura para interiores verde", 2, "Pintura verde", 100 },
                     { 5, 124.99m, "Pintura para exteriores marron", 1, "Pintura marron", 100 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Usuarios",
+                columns: new[] { "ID", "ClaveUsuario", "CorreoUsuario", "IdRol" },
+                values: new object[,]
+                {
+                    { 1, "1234", "admin@hotmail.com", 1 },
+                    { 2, "1234", "lenin@hotmail.com", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -240,6 +267,11 @@ namespace ProyectoDES_Empresa.Migrations
                 column: "IdCategoria");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_IdRol",
+                table: "Usuarios",
+                column: "IdRol");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ventas_IdEmpleado",
                 table: "Ventas",
                 column: "IdEmpleado");
@@ -264,6 +296,9 @@ namespace ProyectoDES_Empresa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Proveedores");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Empleados");

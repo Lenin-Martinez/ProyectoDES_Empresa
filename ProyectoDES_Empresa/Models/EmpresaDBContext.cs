@@ -21,6 +21,7 @@ namespace ProyectoDES_Empresa.Models
 
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Rol> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,7 @@ namespace ProyectoDES_Empresa.Models
             modelBuilder.ApplyConfiguration(new UsuarioSeed());
             modelBuilder.ApplyConfiguration(new ProveedorSeed());
             modelBuilder.ApplyConfiguration(new VentaSeed());
+            modelBuilder.ApplyConfiguration(new RolSeed());
 
         }
     }
