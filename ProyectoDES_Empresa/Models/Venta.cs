@@ -22,11 +22,13 @@ namespace ProyectoDES_Empresa.Models
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [Display(Name = "Unidades vendidas")]
+        [Range(1, int.MaxValue, ErrorMessage = "Las unidades vendidas deben ser mayores a 0")]
         public int UnidadesVenta { get; set; }
 
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [Display(Name = "Precio venta unitario ($)")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "El costo unitario es invalido")]
         public decimal PrecioUnitarioVenta { get; set; }
 
 

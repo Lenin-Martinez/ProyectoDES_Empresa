@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jM5u2hkli1JFdqlOdnynwNFAteD3gTP3Unj0yMsUBvs=",
+  "Hash": "T4PqtrNoKHrxmTSTQSbyUPe4omSBPqjI6lAXsGikAJQ=",
   "Source": "ProyectoDES_Empresa",
   "BasePath": "_content/ProyectoDES_Empresa",
   "Mode": "Default",
@@ -93,12 +93,12 @@
       "OriginalItemSpec": "wwwroot\\css\\EstiloMenu.css"
     },
     {
-      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\categoria.png",
+      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\categoria.jpeg",
       "SourceId": "ProyectoDES_Empresa",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\",
       "BasePath": "_content/ProyectoDES_Empresa",
-      "RelativePath": "css/img/categoria.png",
+      "RelativePath": "css/img/categoria.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,15 +109,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\img\\categoria.png"
+      "OriginalItemSpec": "wwwroot\\css\\img\\categoria.jpeg"
     },
     {
-      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\compra.png",
+      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\compra.jpeg",
       "SourceId": "ProyectoDES_Empresa",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\",
       "BasePath": "_content/ProyectoDES_Empresa",
-      "RelativePath": "css/img/compra.png",
+      "RelativePath": "css/img/compra.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,15 +128,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\img\\compra.png"
+      "OriginalItemSpec": "wwwroot\\css\\img\\compra.jpeg"
     },
     {
-      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\empleado.png",
+      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\empleado.jpeg",
       "SourceId": "ProyectoDES_Empresa",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\",
       "BasePath": "_content/ProyectoDES_Empresa",
-      "RelativePath": "css/img/empleado.png",
+      "RelativePath": "css/img/empleado.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -147,15 +147,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\img\\empleado.png"
+      "OriginalItemSpec": "wwwroot\\css\\img\\empleado.jpeg"
     },
     {
-      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\inventario.png",
+      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\inventario.jpeg",
       "SourceId": "ProyectoDES_Empresa",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\",
       "BasePath": "_content/ProyectoDES_Empresa",
-      "RelativePath": "css/img/inventario.png",
+      "RelativePath": "css/img/inventario.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -166,15 +166,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\img\\inventario.png"
+      "OriginalItemSpec": "wwwroot\\css\\img\\inventario.jpeg"
     },
     {
-      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\proveedor.png",
+      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\proveedor.jpeg",
       "SourceId": "ProyectoDES_Empresa",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\",
       "BasePath": "_content/ProyectoDES_Empresa",
-      "RelativePath": "css/img/proveedor.png",
+      "RelativePath": "css/img/proveedor.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -185,15 +185,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\img\\proveedor.png"
+      "OriginalItemSpec": "wwwroot\\css\\img\\proveedor.jpeg"
     },
     {
-      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\venta.png",
+      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\venta.jpeg",
       "SourceId": "ProyectoDES_Empresa",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\",
       "BasePath": "_content/ProyectoDES_Empresa",
-      "RelativePath": "css/img/venta.png",
+      "RelativePath": "css/img/venta.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -204,7 +204,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\img\\venta.png"
+      "OriginalItemSpec": "wwwroot\\css\\img\\venta.jpeg"
     },
     {
       "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\Index.css",
@@ -224,6 +224,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\Index.css"
+    },
+    {
+      "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\Login.css",
+      "SourceId": "ProyectoDES_Empresa",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\",
+      "BasePath": "_content/ProyectoDES_Empresa",
+      "RelativePath": "css/Login.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Login.css"
     },
     {
       "Identity": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\site.css",

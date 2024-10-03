@@ -17,28 +17,32 @@
       "PackagePath": "staticwebassets\\css\\Index.css"
     },
     {
-      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\categoria.png",
-      "PackagePath": "staticwebassets\\css\\img\\categoria.png"
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\Login.css",
+      "PackagePath": "staticwebassets\\css\\Login.css"
     },
     {
-      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\compra.png",
-      "PackagePath": "staticwebassets\\css\\img\\compra.png"
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\categoria.jpeg",
+      "PackagePath": "staticwebassets\\css\\img\\categoria.jpeg"
     },
     {
-      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\empleado.png",
-      "PackagePath": "staticwebassets\\css\\img\\empleado.png"
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\compra.jpeg",
+      "PackagePath": "staticwebassets\\css\\img\\compra.jpeg"
     },
     {
-      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\inventario.png",
-      "PackagePath": "staticwebassets\\css\\img\\inventario.png"
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\empleado.jpeg",
+      "PackagePath": "staticwebassets\\css\\img\\empleado.jpeg"
     },
     {
-      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\proveedor.png",
-      "PackagePath": "staticwebassets\\css\\img\\proveedor.png"
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\inventario.jpeg",
+      "PackagePath": "staticwebassets\\css\\img\\inventario.jpeg"
     },
     {
-      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\venta.png",
-      "PackagePath": "staticwebassets\\css\\img\\venta.png"
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\proveedor.jpeg",
+      "PackagePath": "staticwebassets\\css\\img\\proveedor.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\img\\venta.jpeg",
+      "PackagePath": "staticwebassets\\css\\img\\venta.jpeg"
     },
     {
       "Id": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\wwwroot\\css\\site.css",

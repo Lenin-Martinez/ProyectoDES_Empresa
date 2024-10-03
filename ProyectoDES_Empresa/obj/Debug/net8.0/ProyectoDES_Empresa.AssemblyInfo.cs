@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProyectoDES_Empresa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6efd97d01397971720857ef12826e773c37c44e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14d7155efa226bd28b2e649d898a34eef2b0d721")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProyectoDES_Empresa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProyectoDES_Empresa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

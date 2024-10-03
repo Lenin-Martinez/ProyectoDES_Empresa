@@ -21,10 +21,17 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Productos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string textoABuscar)
         {
-            var empresaDBContext = _context.Productos.Include(p => p.Categoria);
-            return View(await empresaDBContext.ToListAsync());
+            var productos = from p in _context.Productos.Include(p => p.Categoria)
+                            select p;
+
+            if(!String.IsNullOrEmpty(textoABuscar))
+            {
+                productos = productos.Where(p => p.DescripcionProducto.Contains(textoABuscar));
+            }
+
+            return View(await productos.ToListAsync());
         }
 
         // GET: Productos/Details/5
@@ -62,7 +69,7 @@ namespace ProyectoDES_Empresa.Controllers
         {
             ModelState.Remove("Categoria");
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 // Verificar si el producto ya existe con todos los atributos
                 var existingProduct = _context.Productos
@@ -123,7 +130,7 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -171,14 +178,23 @@ namespace ProyectoDES_Empresa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var producto = await _context.Productos.FindAsync(id);
-            if (producto != null)
+            try
             {
-                _context.Productos.Remove(producto);
-            }
+                var producto = await _context.Productos.FindAsync(id);
+                if (producto == null)
+                {
+                    return NotFound();
+                }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                _context.Productos.Remove(producto);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex) 
+            {
+                ViewBag.Error = "Error al eliminar: Un registro de compras o ventas utiliza este registro";
+                return View();
+            }
         }
 
         private bool ProductoExists(int id)

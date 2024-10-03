@@ -21,9 +21,17 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Empleados
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string textoABuscar)
         {
-            return View(await _context.Empleados.ToListAsync());
+            var empleados = from p in _context.Empleados
+                              select p;
+
+            if (!String.IsNullOrEmpty(textoABuscar))
+            {
+                empleados = empleados.Where(p => p.NombreEmpleado.Contains(textoABuscar));
+            }
+
+            return View(await empleados.ToListAsync());
         }
 
         // GET: Empleados/Details/5
@@ -140,14 +148,24 @@ namespace ProyectoDES_Empresa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var empleado = await _context.Empleados.FindAsync(id);
-            if (empleado != null)
+            try
             {
-                _context.Empleados.Remove(empleado);
-            }
+                var empleado = await _context.Empleados.FindAsync(id);
+                if (empleado == null)
+                {
+                    return NotFound();
+                }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                _context.Empleados.Remove(empleado);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error al eliminar: Un registro de ventas utiliza este registro";
+                return View();
+            }
         }
 
         private bool EmpleadoExists(int id)

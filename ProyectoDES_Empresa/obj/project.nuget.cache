@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "laVqXRlRJxo=",
+  "dgSpecHash": "G9/yvi+W3A4=",
   "success": true,
   "projectFilePath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\erika\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\erika\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
@@ -80,6 +81,7 @@
     "C:\\Users\\erika\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.8\\microsoft.entityframeworkcore.abstractions.8.0.8.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.8\\microsoft.entityframeworkcore.analyzers.8.0.8.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.8\\microsoft.entityframeworkcore.design.8.0.8.nupkg.sha512",
+    "C:\\Users\\erika\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\8.0.8\\microsoft.entityframeworkcore.inmemory.8.0.8.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.8\\microsoft.entityframeworkcore.relational.8.0.8.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\8.0.8\\microsoft.entityframeworkcore.sqlserver.8.0.8.nupkg.sha512",
     "C:\\Users\\erika\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\8.0.8\\microsoft.entityframeworkcore.tools.8.0.8.nupkg.sha512",

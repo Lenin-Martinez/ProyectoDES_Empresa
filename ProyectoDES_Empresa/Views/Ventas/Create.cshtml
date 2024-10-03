@@ -9,15 +9,16 @@
     <title>Registar Venta</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="~/css/Create.css" />
+    <link rel="stylesheet" href="~/css/Index.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 
 </head>
 <body>
-    <section>
-        <div class="container">
-            <h3> REGISTRAR VENTAS</h3>
-        </div>
-    </section>
     <div class="container">
+        <h3> REGISTRAR VENTAS</h3>
         <div class="row">
             <div class="col">
                 <nav aria-label="breadcrumb">
@@ -28,17 +29,30 @@
                 </nav>
             </div>
         </div>
-    </div>
-    <div class="container">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <i class="fa fa-envelope"></i> Ingrese la información de la venta
+                       Ingrese la información de la venta
                     </div>
-                    <div class="card-body">
+                    <div class="col-md-7 card-body">
                         <form asp-action="Create">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            @if (ViewBag.ErrorMessage != null)
+                            {
+                                <div id="error-message" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    @ViewBag.ErrorMessage
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+                            @if (ViewBag.ErrorUnidades != null)
+                            {
+                                <div id="error-message" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    @ViewBag.ErrorUnidades
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+
                             <div class="form-group">
                                 <label asp-for="FechaVenta" class="control-label"></label>
                                 <input asp-for="FechaVenta" class="form-control" />
@@ -50,17 +64,17 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="UnidadesVenta" class="control-label"></label>
-                                <input asp-for="UnidadesVenta" class="form-control" />
+                                <input asp-for="UnidadesVenta" class="form-control" id="unidadesVenta" />
                                 <span asp-validation-for="UnidadesVenta" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="PrecioUnitarioVenta" class="control-label"></label>
-                                <input asp-for="PrecioUnitarioVenta" class="form-control" />
+                                <input asp-for="PrecioUnitarioVenta" class="form-control" id="precioUnitarioVenta" />
                                 <span asp-validation-for="PrecioUnitarioVenta" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="PrecioTotalVenta" class="control-label"></label>
-                                <input asp-for="PrecioTotalVenta" class="form-control" />
+                                <input asp-for="PrecioTotalVenta" class="form-control" id="precioTotalVenta" readonly />
                                 <span asp-validation-for="PrecioTotalVenta" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -68,7 +82,8 @@
                                 <select asp-for="IdEmpleado" class="form-control" asp-items="ViewBag.IdEmpleado"></select>
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Registrar Venta" class="btn btn-primary" />
+                                <input type="submit" value="Registrar Venta" class="btn btn-raised btn-primary" />
+                                <a asp-action="Index" class="btn btn-raised btn-secondary">Regresar</a>
                             </div>
                         </form>
                     </div>
@@ -79,13 +94,22 @@
     <br />
     <br />
     <br />
-    <br />
-    <br />
-    <br />
-    <br />
+
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        document.getElementById('unidadesVenta').addEventListener('input', calcularTotal);
+        document.getElementById('precioUnitarioVenta').addEventListener('input', calcularTotal);
+
+        function calcularTotal() {
+            var unidades = parseFloat(document.getElementById('unidadesVenta').value) || 0;
+            var precioUnitario = parseFloat(document.getElementById('precioUnitarioVenta').value) || 0;
+            var total = unidades * precioUnitario;
+            document.getElementById('precioTotalVenta').value = total.toFixed(2);
+        }
+    </script>
 </body>
 </html>
 @section Scripts {

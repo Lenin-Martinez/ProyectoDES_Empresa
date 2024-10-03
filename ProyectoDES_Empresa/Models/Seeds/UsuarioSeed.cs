@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 
 namespace ProyectoDES_Empresa.Models.Seeds
 {
@@ -9,8 +10,7 @@ namespace ProyectoDES_Empresa.Models.Seeds
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
             builder.HasData(
-                new Usuario { ID = 1, CorreoUsuario = "admin@hotmail.com", ClaveUsuario = "1234", IdRol = 1 },
-                new Usuario { ID = 2, CorreoUsuario = "lenin@hotmail.com", ClaveUsuario = "1234", IdRol = 2 }
+                new Usuario { ID = 1, CorreoUsuario = "admin@correo.com", ClaveUsuario = BCrypt.Net.BCrypt.HashPassword("Pa$$w0rd"), IdRol = 1 }
                 );
         }
     }

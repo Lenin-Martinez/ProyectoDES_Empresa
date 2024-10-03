@@ -9,15 +9,16 @@
     <title>Registar Categoria</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="~/css/Create.css" />
+    <link rel="stylesheet" href="~/css/Index.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 
 </head>
 <body>
-    <section>
-        <div class="container">
-            <h3> REGISTRAR CATEGORIA</h3>
-        </div>
-    </section>
     <div class="container">
+        <h3> REGISTRAR CATEGORIA</h3>
         <div class="row">
             <div class="col">
                 <nav aria-label="breadcrumb">
@@ -28,15 +29,13 @@
                 </nav>
             </div>
         </div>
-    </div>
-    <div class="container">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <i class="fa fa-envelope"></i> Ingrese el nombre de la categoria.
+                        Ingrese el nombre de la categoria.
                     </div>
-                    <div class="card-body">
+                    <div class="col-md-7 card-body">
                         <form asp-action="Create">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
@@ -50,7 +49,8 @@
                                 <span asp-validation-for="DescripcionCategoria" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Registrar" class="btn btn-primary" />
+                                <input type="submit" value="Registrar" class="btn btn-raised btn-primary" />
+                                <a asp-action="Index" class="btn btn-raised btn-secondary">Regresar</a>
                             </div>
                         </form>
                     </div>

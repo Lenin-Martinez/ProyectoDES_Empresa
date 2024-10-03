@@ -8,49 +8,55 @@ namespace ProyectoDES_Empresa.Models.Seeds
         public void Configure(EntityTypeBuilder<Compra> builder)
         {
             builder.HasData(
-                new Compra { ID = 1, 
-                    FechaCompra = DateTime.Parse("2023-11-17"),
-                    IdProveedor = 1,
-                    IdProducto = 1,
-                    UnidadesCompra = 5
-
-                },
+                 new Compra
+                 {
+                     ID = 1,
+                     FechaCompra = DateTime.Parse("2024-08-01"),
+                     IdProveedor = 4,
+                     IdProducto = 1,
+                     UnidadesCompra = 25
+                 },
                  new Compra
                  {
                      ID = 2,
-                     FechaCompra = DateTime.Parse("2023-11-18"),
+                     FechaCompra = DateTime.Parse("2024-08-22"),
                      IdProveedor = 2,
                      IdProducto = 2,
-                     UnidadesCompra = 10
-
+                     UnidadesCompra = 50
                  },
                  new Compra
                  {
                      ID = 3,
-                     FechaCompra = DateTime.Parse("2023-11-19"),
+                     FechaCompra = DateTime.Parse("2024-07-14"),
                      IdProveedor = 3,
                      IdProducto = 3,
-                     UnidadesCompra = 7
-
+                     UnidadesCompra = 100
                  },
                  new Compra
                  {
                      ID = 4,
-                     FechaCompra = DateTime.Parse("2023-11-20"),
-                     IdProveedor = 4,
+                     FechaCompra = DateTime.Parse("2024-09-14"),
+                     IdProveedor = 3,
                      IdProducto = 4,
-                     UnidadesCompra = 2
-
+                     UnidadesCompra = 20
                  },
                  new Compra
                  {
                      ID = 5,
-                     FechaCompra = DateTime.Parse("2023-11-21"),
-                     IdProveedor = 5,
+                     FechaCompra = DateTime.Parse("2024-08-04"),
+                     IdProveedor = 3,
                      IdProducto = 5,
-                     UnidadesCompra = 1
-
+                     UnidadesCompra = 10
+                 },
+                 new Compra
+                 {
+                     ID = 6,
+                     FechaCompra = DateTime.Parse("2024-03-04"),
+                     IdProveedor = 4,
+                     IdProducto = 6,
+                     UnidadesCompra = 10
                  }
+
 
 
                 );

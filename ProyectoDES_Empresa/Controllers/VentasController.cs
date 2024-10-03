@@ -21,13 +21,35 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Ventas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string fechaInicioTexto, string fechaFinTexto)
         {
-            var empresaDBContext = _context.Ventas
+
+            var compras = from p in _context.Ventas
                 .Include(v => v.Empleado)
                 .Include(v => v.Producto)
-                .Include(v => v.Producto.Categoria);
-            return View(await empresaDBContext.ToListAsync());
+                .Include(v => v.Producto.Categoria)
+                select p;
+
+            DateTime fechaInicio;
+            DateTime fechaFin;
+
+            bool fechaInicioValida = DateTime.TryParse(fechaInicioTexto, out fechaInicio);
+            bool fechaFinValida = DateTime.TryParse(fechaFinTexto, out fechaFin);
+
+            if (fechaInicioValida && fechaFinValida)
+            {
+                compras = compras.Where(p => p.FechaVenta >= fechaInicio && p.FechaVenta <= fechaFin);
+            }
+            else if (fechaInicioValida)
+            {
+                compras = compras.Where(p => p.FechaVenta >= fechaInicio);
+            }
+            else if (fechaFinValida)
+            {
+                compras = compras.Where(p => p.FechaVenta <= fechaFin);
+            }
+
+            return View(await compras.ToListAsync());
         }
 
         // GET: Ventas/Details/5
@@ -85,19 +107,26 @@ namespace ProyectoDES_Empresa.Controllers
 
                 if (producto != null && venta.UnidadesVenta <= producto.UnidadesProducto)
                 {
-                    // Restar las unidades vendidas de las unidades existentes
-                    producto.UnidadesProducto -= venta.UnidadesVenta;
-                    _context.Update(producto);
+                    if(venta.PrecioUnitarioVenta >= producto.CostoProducto)
+                    {
+                        // Restar las unidades vendidas de las unidades existentes
+                        producto.UnidadesProducto -= venta.UnidadesVenta;
+                        _context.Update(producto);
 
-                    // Agregar la venta
-                    _context.Add(venta);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                        // Agregar la venta
+                        _context.Add(venta);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "No se puede registrar la venta: El precio de venta es menor que el costo del producto";
+                    }
+
                 }
                 else
                 {
-                    // Si no hay suficientes unidades, muestra un mensaje de error
-                    ModelState.AddModelError("", "No hay suficientes unidades del producto para realizar la venta.");
+                    ViewBag.ErrorUnidades = "No se puede registrar la venta: No hay suficientes unidades del producto.";
                 }
             }
 
@@ -151,23 +180,33 @@ namespace ProyectoDES_Empresa.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(venta);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!VentaExists(venta.ID))
+                // Obtener el producto correspondiente a la venta
+                var producto = await _context.Productos.FindAsync(venta.IdProducto);
+
+                    if (producto != null && venta.PrecioUnitarioVenta >= producto.CostoProducto)
                     {
-                        return NotFound();
+                        try
+                        {
+                            _context.Update(venta);
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!VentaExists(venta.ID))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        return RedirectToAction(nameof(Index));
                     }
                     else
                     {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                        ViewBag.ErrorMessage = "No se puede actualizar la venta: El precio de venta es menor que el costo del producto";
+                    }               
             }
             ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdEmpleado);
             ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "NombreProducto", venta.IdProducto);
@@ -201,11 +240,13 @@ namespace ProyectoDES_Empresa.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var venta = await _context.Ventas.FindAsync(id);
-            if (venta != null)
+            if (venta == null)
             {
-                _context.Ventas.Remove(venta);
+                return NotFound();
+
             }
 
+            _context.Ventas.Remove(venta);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

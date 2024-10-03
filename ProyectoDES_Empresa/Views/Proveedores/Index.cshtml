@@ -9,7 +9,10 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="~/css/Create.css" />
     <link rel="stylesheet" href="~/css/Index.css" />
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 </head>
 <body>
     <div class="container">
@@ -24,7 +27,18 @@
                 </nav>
             </div>
         </div>
-
+        <form asp-controller="Proveedores" asp-action="Index" method="get">
+            <dl class="row">
+                <dd class="col-sm-11">
+                    <input type="text" name="textoABuscar" class="form-control" placeholder="Buscar por nombre de proveedor..." />
+                </dd>
+                <dd class="busqueda col-sm-1">
+                    <button type="submit" class="btn btn-raised btn-primary btn-just-icon btn-sm">
+                        <i class="material-icons">search</i>
+                    </button>
+                </dd>
+            </dl>
+        </form>
         <table class="table">
     <thead>
         <tr>
@@ -40,18 +54,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NombreProveedor)
             </td>
-                        <td>
-                            <button class="btn btn-info btn-pressure btn-sensitive">
-                                <a asp-action="Edit" asp-route-id="@item.ID">Editar</a>
-                            </button>
-                            <button class="btn btn-success">
-                                <a asp-action="Details" asp-route-id="@item.ID">Detalles</a>
-                            </button>
-                            <button class="btn btn-danger">
-                                <a asp-action="Delete" asp-route-id="@item.ID">Eliminar</a>
-                            </button>
+                        <td class="td-actions">
+                            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-raised btn-primary btn-just-icon btn-sm" rel="tooltip" data-original-title="" title="">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-raised btn-secondary btn-just-icon btn-sm" rel="tooltip" data-original-title="" title="">
+                                <i class="material-icons">info</i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-just-icon btn-sm" rel="tooltip" data-original-title="" title="">
+                                <i class="material-icons">delete</i>
+                            </a>
                         </td>
-                    </tr>
+        </tr>
                 }
             </tbody>
         </table>
