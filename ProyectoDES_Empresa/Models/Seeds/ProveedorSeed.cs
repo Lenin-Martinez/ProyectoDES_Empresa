@@ -8,11 +8,11 @@ namespace ProyectoDES_Empresa.Models.Seeds
         public void Configure(EntityTypeBuilder<Proveedor> builder)
         {
             builder.HasData(
-                new Proveedor { ID = 1, NombreProveedor ="Sherwin Williams" },
-                new Proveedor { ID = 2, NombreProveedor = "Corona" },
-                new Proveedor { ID = 3, NombreProveedor = "Comex" },
-                new Proveedor { ID = 4, NombreProveedor = "Pinturas Americanas"},
-                 new Proveedor { ID = 5, NombreProveedor = "Pinturas genericas" }
+                new Proveedor { ID = 1, NombreProveedor = "Samsung" },
+                new Proveedor { ID = 2, NombreProveedor = "Distribuidora El Sueño" },
+                new Proveedor { ID = 3, NombreProveedor = "Almacenes La Moderna" },
+                new Proveedor { ID = 4, NombreProveedor = "Carpinteria Don Mario" },
+                new Proveedor { ID = 5, NombreProveedor = "Mabe" }
                 );
         }
     }

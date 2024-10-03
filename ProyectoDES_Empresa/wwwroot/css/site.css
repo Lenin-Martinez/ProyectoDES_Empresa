@@ -19,5 +19,37 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
 }
+
+.content {
+    flex: 1;
+}
+
+footer {
+    width: 100%;
+    color: #a3acac;
+    background: #121a1a;
+    display: block;
+    /*    position: absolute;
+    float: left;
+    vertical-align: middle;*/
+    text-align: center;
+    position: relative;
+}
+
+
+.footer p {
+    margin-bottom: 0;
+}
+
+footer p a {
+    color: #555;
+}
+
+    footer p a:hover {
+        color: #9f26aa;
+        text-decoration: none;
+    }
+

@@ -28,7 +28,7 @@ namespace ProyectoDES_Empresa.Models.Seeds
                       ID = 3,
                       NombreEmpleado = "Patricia",
                       ApellidoEmpleado = "Gomez",
-                      ComisionVentaEmpleado = 0.8m
+                      ComisionVentaEmpleado = 2.0m
 
                   },
                    new Empleado
@@ -36,7 +36,7 @@ namespace ProyectoDES_Empresa.Models.Seeds
                        ID = 4,
                        NombreEmpleado = "Jonathan",
                        ApellidoEmpleado = "Reyes",
-                       ComisionVentaEmpleado = 1.2m
+                       ComisionVentaEmpleado = 1.5m
 
                    },
                     new Empleado
@@ -44,7 +44,7 @@ namespace ProyectoDES_Empresa.Models.Seeds
                         ID = 5,
                         NombreEmpleado = "Mardoqueo",
                         ApellidoEmpleado = "Torres",
-                        ComisionVentaEmpleado = 0.10m
+                        ComisionVentaEmpleado = 3.0m
 
                     }
                 );

@@ -21,9 +21,17 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Categorias
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string textoABuscar)
         {
-            return View(await _context.Categorias.ToListAsync());
+            var categorias = from p in _context.Categorias
+                              select p;
+
+            if (!String.IsNullOrEmpty(textoABuscar))
+            {
+                categorias = categorias.Where(p => p.NombreCategoria.Contains(textoABuscar));
+            }
+
+            return View(await categorias.ToListAsync());
         }
 
         // GET: Categorias/Details/5
@@ -140,14 +148,23 @@ namespace ProyectoDES_Empresa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoria = await _context.Categorias.FindAsync(id);
-            if (categoria != null)
+            try
             {
-                _context.Categorias.Remove(categoria);
-            }
+                var categoria = await _context.Categorias.FindAsync(id);
+                if (categoria == null)
+                {
+                    return NotFound();
+                }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                _context.Categorias.Remove(categoria);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error al eliminar: Un registro de productos utiliza este registro";
+                return View();
+            }
         }
 
         private bool CategoriaExists(int id)

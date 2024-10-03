@@ -1,11 +1,12 @@
-﻿@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+﻿@@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 html {
-    background: #eee !important;
+    background: #f1f2eb !important;
 }
 
+
 #team {
-    background: #eee !important;
+    background: #f1f2eb !important;
 }
 
 .btn-primary:hover,
@@ -30,14 +31,18 @@ section {
         text-align: center;
         color: #007b5e;
         text-transform: uppercase;
+ 
     }
 
 .menu {
     text-align: center;
-    color: #979797;
-    margin-bottom: 30px;
-/*    text-transform: uppercase;
-*/}
+    color: #3e3a4e;
+    margin-bottom: 25px;
+    margin-top: 20px;
+    text-transform: uppercase;
+
+}
+
 #team .card {
     border: none;
     background: #ffffff;
@@ -129,6 +134,7 @@ section {
         .frontside .card .card-title,
         .backside .card .card-title {
             color: #007b5e !important;
+            font-weight: bold;
         }
 
         .frontside .card .card-body img {

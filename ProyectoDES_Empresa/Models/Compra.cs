@@ -27,6 +27,7 @@ namespace ProyectoDES_Empresa.Models
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [Display(Name = "Unidades compradas")]
+        [Range(1, int.MaxValue, ErrorMessage = "Las unidades deben ser mayores a 0")]
         public int UnidadesCompra { get; set; }
     }
 }

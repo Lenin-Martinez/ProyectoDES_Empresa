@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\views\\shared\\_productoedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\views\\shared\\_productoedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\controllers\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\controllers\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\models\\empresadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\models\\empresadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\views\\ventas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\views\\ventas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\controllers\\comprascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\controllers\\comprascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\models\\seeds\\usuarioseed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\models\\seeds\\usuarioseed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|c:\\users\\erika\\source\\repos\\proyectodes_empresa\\proyectodes_empresa\\views\\compras\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{94C2770D-C5CE-493C-A9F6-641481BF0472}|ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj|solutionrelative:proyectodes_empresa\\views\\compras\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,71 +30,71 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "ProyectoDES_Empresa\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAACcAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-29T04:32:01.117Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "EmpresaDBContext.cs",
-              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Models\\EmpresaDBContext.cs",
-              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Models\\EmpresaDBContext.cs",
-              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Models\\EmpresaDBContext.cs",
-              "RelativeToolTip": "ProyectoDES_Empresa\\Models\\EmpresaDBContext.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAA3wB8AAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T04:28:19.362Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Models\\Usuario.cs",
-              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Models\\Usuario.cs",
-              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Models\\Usuario.cs",
-              "RelativeToolTip": "ProyectoDES_Empresa\\Models\\Usuario.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T04:28:02.933Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UsuarioSeed.cs",
-              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Models\\Seeds\\UsuarioSeed.cs",
-              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Models\\Seeds\\UsuarioSeed.cs",
-              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Models\\Seeds\\UsuarioSeed.cs",
-              "RelativeToolTip": "ProyectoDES_Empresa\\Models\\Seeds\\UsuarioSeed.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T04:26:33.898Z",
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Views\\Ventas\\Create.cshtml",
+              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Views\\Ventas\\Create.cshtml",
+              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Views\\Ventas\\Create.cshtml",
+              "RelativeToolTip": "ProyectoDES_Empresa\\Views\\Ventas\\Create.cshtml",
+              "ViewState": "AQIAADcAAAAAAAAAAAAwwD8AAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-03T06:35:22.071Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UsuariosController.cs",
-              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Controllers\\UsuariosController.cs",
-              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Controllers\\UsuariosController.cs",
-              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Controllers\\UsuariosController.cs",
-              "RelativeToolTip": "ProyectoDES_Empresa\\Controllers\\UsuariosController.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAQwH8AAAAAAAAA",
+              "Title": "VentasController.cs",
+              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Controllers\\VentasController.cs",
+              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Controllers\\VentasController.cs",
+              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Controllers\\VentasController.cs",
+              "RelativeToolTip": "ProyectoDES_Empresa\\Controllers\\VentasController.cs",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAAAEwAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T04:25:01.461Z",
+              "WhenOpened": "2024-10-03T06:27:05.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ComprasController.cs",
+              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Controllers\\ComprasController.cs",
+              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Controllers\\ComprasController.cs",
+              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Controllers\\ComprasController.cs",
+              "RelativeToolTip": "ProyectoDES_Empresa\\Controllers\\ComprasController.cs",
+              "ViewState": "AQIAAIoAAAAAAAAAAAAAAKIAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-03T05:48:59.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_ProductoEdit.cshtml",
+              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Views\\Shared\\_ProductoEdit.cshtml",
+              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Views\\Shared\\_ProductoEdit.cshtml",
+              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Views\\Shared\\_ProductoEdit.cshtml",
+              "RelativeToolTip": "ProyectoDES_Empresa\\Views\\Shared\\_ProductoEdit.cshtml",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAACQAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-03T05:47:14.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Views\\Compras\\Edit.cshtml",
+              "RelativeDocumentMoniker": "ProyectoDES_Empresa\\Views\\Compras\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\Views\\Compras\\Edit.cshtml",
+              "RelativeToolTip": "ProyectoDES_Empresa\\Views\\Compras\\Edit.cshtml",
+              "ViewState": "AQIAACEAAAAAAAAAAAAcwDAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-03T05:47:02.996Z",
               "EditorCaption": ""
             }
           ]

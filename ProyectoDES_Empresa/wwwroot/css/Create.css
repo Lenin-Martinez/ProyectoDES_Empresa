@@ -1,7 +1,31 @@
-﻿*
-** Style Simple Ecommerce Theme for Bootstrap 4
-** Created by T-PHP https://t-php.fr/43-theme-ecommerce-bootstrap-4.html
-*/
+﻿html * {
+    -webkit-font-smoothing: antialiased;
+}
+
+.container h3 {
+    font-size: 25px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 300;
+    color: #3c4858;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.container h5 {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 10px 0;
+    font-weight: 300;
+    color: #008276;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+small {
+    font-size: 75% !important;
+    color: #777;
+}
+
 .bloc_left_price {
     color: #c01508;
     text-align: center;
@@ -69,4 +93,14 @@ footer {
 
     footer a {
         color: #f8f9fa !important
+    }
+
+.btn-custom {
+    background-color: #28a745;
+    color: white;
+    border: none; 
+}
+
+    .btn-custom:hover {
+        background-color: #218838; 
     }

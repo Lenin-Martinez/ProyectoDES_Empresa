@@ -21,9 +21,17 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Proveedores
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string textoABuscar)
         {
-            return View(await _context.Proveedores.ToListAsync());
+            var proveedores = from p in _context.Proveedores
+                           select p;
+
+            if (!String.IsNullOrEmpty(textoABuscar))
+            {
+                proveedores = proveedores.Where(p => p.NombreProveedor.Contains(textoABuscar));
+            }
+
+            return View(await proveedores.ToListAsync());
         }
 
         // GET: Proveedores/Details/5
@@ -140,14 +148,23 @@ namespace ProyectoDES_Empresa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var proveedor = await _context.Proveedores.FindAsync(id);
-            if (proveedor != null)
+            try
             {
-                _context.Proveedores.Remove(proveedor);
-            }
+                var proveedor = await _context.Proveedores.FindAsync(id);
+                if (proveedor == null)
+                {
+                    return NotFound();
+                }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                _context.Proveedores.Remove(proveedor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error al eliminar: Un registro de compras utiliza este registro";
+                return View();
+            }
         }
 
         private bool ProveedorExists(int id)

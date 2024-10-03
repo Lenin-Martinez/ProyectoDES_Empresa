@@ -20,7 +20,7 @@ namespace ProyectoDES_Empresa.Models
 
 
         [Required(ErrorMessage = "Este campo es requerido")]
-        [Range(0,100, ErrorMessage = "El porcentaje no puede ser menor a 0% ni superar el 100%")]
+        [Range(0,5, ErrorMessage = "El porcentaje no puede ser menor a 0% ni superar el 5%")]
         [Display(Name = "Porcentaje de ganancia (%)")]
         public decimal ComisionVentaEmpleado { get; set; }
     }
