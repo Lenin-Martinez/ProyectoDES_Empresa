@@ -156,35 +156,66 @@ namespace ProyectoDES_Empresa.Controllers
 
         //Get original
         // GET: Compras/Edit/5
-        public async Task<IActionResult> Edit(int? id,
-            [Bind("ID,IdCategoria,NombreProducto,DescripcionProducto,UnidadesProducto,CostoProducto")] Producto producto)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var compra = await _context.Compras.FindAsync(id);
-            if (compra == null)
+            var compras = await _context.Compras.FindAsync(id);
+            if (compras == null)
             {
                 return NotFound();
             }
 
-            // Obtener todos los productos con sus categorías y descripciones
-            var productos = await _context.Productos
-                .Include(p => p.Categoria)
+            //Sector de compras
+            ViewData["IdProveedor"] = new SelectList(_context.Proveedores, "ID", "NombreProveedor", compras.IdProveedor);
+
+
+            //Sector de producto
+            var prod = await _context.Productos.FindAsync(compras.IdProducto);
+            if (prod == null)
+            {
+                return NotFound();
+            }
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria", prod.IdCategoria);
+
+            ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto", compras.IdProducto);
+            ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto", compras.IdProducto);
+            ViewData["CostoProducto"] = new SelectList(_context.Productos, "CostoProducto", "CostoProducto", compras.IdProducto);
+
+
+            return View(compras);
+        }
+        
+        //Funciones necesaria para filtrar de manera descendente
+        public JsonResult GetProductosByCategoria(int id)
+        {
+            var productos = _context.Productos.Where(p => p.IdCategoria == id).Select(p => new
+            {
+                id = p.ID,
+                nombre = p.NombreProducto,
+                descripcion = p.DescripcionProducto,
+                costo = p.CostoProducto
+            }).ToList();
+
+            return Json(productos);
+        }
+
+        public JsonResult GetProductoDetalles(int id)
+        {
+            var producto = _context.Productos
+                .Where(p => p.ID == id)
                 .Select(p => new
                 {
-                    p.ID,
-                    NombreCompleto = p.Categoria.NombreCategoria + " - " + p.NombreProducto + " - " + p.DescripcionProducto + " - $" + p.CostoProducto
+                    id = p.ID,
+                    descripcion = p.DescripcionProducto,
+                    costo = p.CostoProducto
                 })
-                .ToListAsync();
+                .FirstOrDefault();
 
-            ViewData["IdProducto"] = new SelectList(productos, "ID", "NombreCompleto", compra.IdProducto);
-
-            ViewData["IdProveedor"] = new SelectList(_context.Proveedores, "ID", "NombreProveedor", compra.IdProveedor);
-
-            return View(compra);
+            return Json(producto);
         }
 
 
@@ -201,6 +232,8 @@ namespace ProyectoDES_Empresa.Controllers
         {
             ModelState.Remove("Proveedor");
             ModelState.Remove("Producto");
+            ModelState.Remove("Categoria");
+            ModelState.Remove("UnidadesProducto");
 
             if (id != compra.ID)
             {
@@ -211,13 +244,23 @@ namespace ProyectoDES_Empresa.Controllers
             {
                 try
                 {
-                    //En vista, Se almacena el id del producto en NombreProducto
-                    compra.IdProducto = Convert.ToInt32(producto.NombreProducto);
+                    var IdProd = Convert.ToInt32(producto.NombreProducto);
 
-                    _context.Update(compra);
-                    await _context.SaveChangesAsync();
+                    var productoEncontrado = await _context.Productos.FindAsync(IdProd);
+                    if (productoEncontrado == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        compra.IdProducto = productoEncontrado.ID;
 
-                    return RedirectToAction(nameof(Index));
+                        _context.Update(compra);
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction(nameof(Index));
+                    }
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -1015,3 +1015,5 @@ C:\Users\Omar\Desktop\ProyectoDES_Empresa\ProyectoDES_Empresa\obj\Debug\net8.0\P
 C:\Users\Omar\Desktop\ProyectoDES_Empresa\ProyectoDES_Empresa\obj\Debug\net8.0\ref\ProyectoDES_Empresa.dll
 C:\Users\erika\source\repos\ProyectoDES_Empresa\ProyectoDES_Empresa\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\erika\source\repos\ProyectoDES_Empresa\ProyectoDES_Empresa\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+E:\Universidad\DES_Teo\ProyectoDES\ProyectoDES_Empresa\ProyectoDES_Empresa\bin\Debug\net8.0\BCrypt.Net-Next.dll
+E:\Universidad\DES_Teo\ProyectoDES\ProyectoDES_Empresa\ProyectoDES_Empresa\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
