@@ -16,6 +16,6 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GestionInventarios.Tests
-build_property.ProjectDir = C:\Users\erika\source\repos\ProyectoDES_Empresa\GestionInventarios.Tests\
+build_property.ProjectDir = E:\Universidad\DES_Teo\ProyectoDES\ProyectoDES_Empresa\GestionInventarios.Tests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

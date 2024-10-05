@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\GestionInventarios.Tests\\GestionInventarios.Tests.csproj": {}
+    "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\GestionInventarios.Tests\\GestionInventarios.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\GestionInventarios.Tests\\GestionInventarios.Tests.csproj": {
+    "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\GestionInventarios.Tests\\GestionInventarios.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\GestionInventarios.Tests\\GestionInventarios.Tests.csproj",
+        "projectUniqueName": "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\GestionInventarios.Tests\\GestionInventarios.Tests.csproj",
         "projectName": "GestionInventarios.Tests",
-        "projectPath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\GestionInventarios.Tests\\GestionInventarios.Tests.csproj",
-        "packagesPath": "C:\\Users\\erika\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\GestionInventarios.Tests\\obj\\",
+        "projectPath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\GestionInventarios.Tests\\GestionInventarios.Tests.csproj",
+        "packagesPath": "C:\\Users\\LMartinez\\.nuget\\packages\\",
+        "outputPath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\GestionInventarios.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\erika\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LMartinez\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,15 +22,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj": {
-                "projectPath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj"
+              "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj": {
+                "projectPath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj"
               }
             }
           }
@@ -83,21 +82,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj": {
+    "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
+        "projectUniqueName": "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
         "projectName": "ProyectoDES_Empresa",
-        "projectPath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
-        "packagesPath": "C:\\Users\\erika\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erika\\source\\repos\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\obj\\",
+        "projectPath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\ProyectoDES_Empresa.csproj",
+        "packagesPath": "C:\\Users\\LMartinez\\.nuget\\packages\\",
+        "outputPath": "E:\\Universidad\\DES_Teo\\ProyectoDES\\ProyectoDES_Empresa\\ProyectoDES_Empresa\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\erika\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LMartinez\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -105,7 +104,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -175,7 +173,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

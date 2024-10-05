@@ -76,18 +76,42 @@ namespace ProyectoDES_Empresa.Controllers
         // GET: Ventas/Create
         public IActionResult Create()
         {
-            var productos = _context.Productos
-            .Include(p => p.Categoria) 
-            .Select(p => new
-            {
-                p.ID,
-                NombreCompleto = p.Categoria.NombreCategoria + " - " + p.NombreProducto
-            })
-            .ToList();
-
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria");
+            ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto");
+            ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto");
             ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado");
-            ViewData["IdProducto"] = new SelectList(productos, "ID", "NombreCompleto");
+
             return View();
+        }
+
+
+        //Funciones necesaria para filtrar de manera descendente
+        public JsonResult GetProductosByCategoria(int id)
+        {
+            var productos = _context.Productos.Where(p => p.IdCategoria == id).Select(p => new
+            {
+                id = p.ID,
+                nombre = p.NombreProducto,
+                descripcion = p.DescripcionProducto,
+                costo = p.CostoProducto
+            }).ToList();
+
+            return Json(productos);
+        }
+
+        public JsonResult GetProductoDetalles(int id)
+        {
+            var producto = _context.Productos
+                .Where(p => p.ID == id)
+                .Select(p => new
+                {
+                    id = p.ID,
+                    descripcion = p.DescripcionProducto,
+                    costo = p.CostoProducto
+                })
+                .FirstOrDefault();
+
+            return Json(producto);
         }
 
         // POST: Ventas/Create
@@ -95,25 +119,33 @@ namespace ProyectoDES_Empresa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FechaVenta,IdProducto,UnidadesVenta,PrecioUnitarioVenta,PrecioTotalVenta,IdEmpleado")] Venta venta)
+        public async Task<IActionResult> Create(
+            [Bind("ID,IdCategoria,NombreProducto,DescripcionProducto,UnidadesProducto,CostoProducto")] Producto producto,
+            [Bind("ID,FechaVenta,IdProducto,UnidadesVenta,PrecioUnitarioVenta,PrecioTotalVenta,IdEmpleado")] Venta venta)
         {
             ModelState.Remove("Empleado");
             ModelState.Remove("Producto");
+            ModelState.Remove("Producto.Categoria");
+            ModelState.Remove("Producto.CostoProducto");
+            ModelState.Remove("Producto.UnidadesProducto");
 
             if (ModelState.IsValid)
             {
-                // Obtener el producto correspondiente a la venta
-                var producto = await _context.Productos.FindAsync(venta.IdProducto);
+                var id = Convert.ToInt32(producto.NombreProducto);
 
-                if (producto != null && venta.UnidadesVenta <= producto.UnidadesProducto)
+                var producto_Encontrado = await _context.Productos.FindAsync(id);
+
+                if (producto_Encontrado != null && venta.UnidadesVenta <= producto_Encontrado.UnidadesProducto)
                 {
-                    if(venta.PrecioUnitarioVenta >= producto.CostoProducto)
+                    if (venta.PrecioUnitarioVenta >= producto_Encontrado.CostoProducto)
                     {
-                        // Restar las unidades vendidas de las unidades existentes
-                        producto.UnidadesProducto -= venta.UnidadesVenta;
-                        _context.Update(producto);
+                        //Restar las unidades vendidas de las unidades existentes
+                        producto_Encontrado.UnidadesProducto -= venta.UnidadesVenta;
+                        _context.Update(producto_Encontrado);
 
                         // Agregar la venta
+
+                        venta.IdProducto = producto_Encontrado.ID;
                         _context.Add(venta);
                         await _context.SaveChangesAsync();
                         return RedirectToAction(nameof(Index));
@@ -130,8 +162,11 @@ namespace ProyectoDES_Empresa.Controllers
                 }
             }
 
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria");
+            ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto");
+            ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto");
             ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdEmpleado);
-            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "NombreProducto", venta.IdProducto);
+
             return View(venta);
         }
 
@@ -149,17 +184,17 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
-            var productos = _context.Productos
-                .Include(p => p.Categoria) 
-                .Select(p => new
-                {
-                    p.ID,
-                    NombreCompleto = p.Categoria.NombreCategoria + " - " + p.NombreProducto
-                })
-                .ToList();
+            var producto = await _context.Productos.FindAsync(venta.IdProducto);
+            if (producto == null)
+            {
+                return NotFound();
+            }
 
-            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdEmpleado);
-            ViewData["IdProducto"] = new SelectList(productos, "ID", "NombreCompleto", venta.IdProducto);
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria", producto.IdCategoria);
+            ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto", venta.IdProducto);
+            ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto", venta.IdProducto);
+            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdProducto);
+
             return View(venta);
         }
 
@@ -168,10 +203,16 @@ namespace ProyectoDES_Empresa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FechaVenta,IdProducto,UnidadesVenta,PrecioUnitarioVenta,PrecioTotalVenta,IdEmpleado")] Venta venta)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("ID,IdCategoria,NombreProducto,DescripcionProducto,UnidadesProducto,CostoProducto")] Producto producto,
+            [Bind("ID,FechaVenta,IdProducto,UnidadesVenta,PrecioUnitarioVenta,PrecioTotalVenta,IdEmpleado")] Venta venta)
         {
             ModelState.Remove("Empleado");
             ModelState.Remove("Producto");
+
+            ModelState.Remove("Producto.Categoria");
+            ModelState.Remove("Producto.CostoProducto");
+            ModelState.Remove("Producto.UnidadesProducto");
 
             if (id != venta.ID)
             {
@@ -180,13 +221,16 @@ namespace ProyectoDES_Empresa.Controllers
 
             if (ModelState.IsValid)
             {
-                // Obtener el producto correspondiente a la venta
-                var producto = await _context.Productos.FindAsync(venta.IdProducto);
+                var id_producto = Convert.ToInt32(producto.NombreProducto);
 
-                    if (producto != null && venta.PrecioUnitarioVenta >= producto.CostoProducto)
+                // Obtener el producto correspondiente a la venta
+                var producto_Encontrado = await _context.Productos.FindAsync(id_producto);
+
+                    if (producto_Encontrado != null && venta.PrecioUnitarioVenta >= producto_Encontrado.CostoProducto)
                     {
                         try
                         {
+                        venta.IdProducto = producto_Encontrado.ID;
                             _context.Update(venta);
                             await _context.SaveChangesAsync();
                         }
@@ -208,8 +252,11 @@ namespace ProyectoDES_Empresa.Controllers
                         ViewBag.ErrorMessage = "No se puede actualizar la venta: El precio de venta es menor que el costo del producto";
                     }               
             }
-            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdEmpleado);
-            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "NombreProducto", venta.IdProducto);
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria", producto.IdCategoria);
+            ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto", venta.IdProducto);
+            ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto", venta.IdProducto);
+            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdProducto);
+
             return View(venta);
         }
 
