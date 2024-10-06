@@ -17,7 +17,8 @@
 </head>
 <body>
     <div class="container">
-        <br /><br />
+        <div class="contenedorInterno">
+            <br /><br />
         <h3> ELIMINAR PROVEEDOR </h3>
         @if (ViewBag.Error != null)
         {
@@ -30,10 +31,10 @@
         <div>
             <hr />
             <dl class="row">
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.NombreProveedor)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.NombreProveedor)
                 </dd>
             </dl>
@@ -44,15 +45,9 @@
                 <input type="submit" value="Eliminar" class="btn btn-danger" />
                 <a asp-action="Index" class="btn btn-raised btn-secondary">Cancelar</a>
             </form>
-
         </div>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+</div>
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

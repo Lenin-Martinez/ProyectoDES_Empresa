@@ -16,8 +16,8 @@ namespace GestionInventarios.Tests
 
             var categoria = new Categoria
             {
-                NombreCategoria = "Pinturas",
-                DescripcionCategoria = "Categoría de pinturas"
+                NombreCategoria = "Juego de Sala",
+                DescripcionCategoria = "Juegos de sala de diversos modelos y tamaños"
             };
 
             var result = await controller.Create(categoria);
@@ -25,9 +25,9 @@ namespace GestionInventarios.Tests
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectResult.ActionName);
 
-            var categoriaCreada = await context.Categorias.FirstOrDefaultAsync(c => c.NombreCategoria == "Pinturas");
+            var categoriaCreada = await context.Categorias.FirstOrDefaultAsync(c => c.NombreCategoria == "Juego de Sala");
             Assert.NotNull(categoriaCreada);
-            Assert.Equal("Pinturas", categoriaCreada.NombreCategoria);
+            Assert.Equal("Juego de Sala", categoriaCreada.NombreCategoria);
         }
 
         //No ingresa la categoria cuando el modelo no es valido
@@ -40,7 +40,7 @@ namespace GestionInventarios.Tests
             var categoria = new Categoria
             {
                 NombreCategoria = "", 
-                DescripcionCategoria = "Categoría de pinturas"
+                DescripcionCategoria = "Juegos de sala de diversos modelos y tamaños"
             };
 
             // Error de validación en el Nombre de Categoria
@@ -63,15 +63,15 @@ namespace GestionInventarios.Tests
             //Crea una nueva categoria
             var categoria = new Categoria
             {
-                NombreCategoria = "Spray",
-                DescripcionCategoria = "Categoría de spray"
+                NombreCategoria = "Juego de Sala",
+                DescripcionCategoria = "Juegos de sala de diversos modelos y tamaños"
             };
             context.Categorias.Add(categoria);
             await context.SaveChangesAsync();
 
             //Actualizacion de parametros
-            categoria.NombreCategoria = "Pintura morada";
-            categoria.DescripcionCategoria = "Pintura para exteriores morada";
+            categoria.NombreCategoria = "Producto Metalico";
+            categoria.DescripcionCategoria = "Diversos productos metalicos: estantes, comedores, percheros.";
 
             var result = await controller.Edit(categoria.ID, categoria);
 
@@ -81,8 +81,8 @@ namespace GestionInventarios.Tests
             //Verifica que la informacion ha sido actualizada
             var categoriaActualizada = context.Categorias.FirstOrDefault(p => p.ID == categoria.ID);
             Assert.NotNull(categoriaActualizada);
-            Assert.Equal("Pintura morada", categoriaActualizada.NombreCategoria);
-            Assert.Equal("Pintura para exteriores morada", categoriaActualizada.DescripcionCategoria);
+            Assert.Equal("Producto Metalico", categoriaActualizada.NombreCategoria);
+            Assert.Equal("Diversos productos metalicos: estantes, comedores, percheros.", categoriaActualizada.DescripcionCategoria);
         }
 
         //No Actualiza la categoria cuando la informacion no es valida
@@ -95,8 +95,8 @@ namespace GestionInventarios.Tests
             //Crea una nueva categoria
             var categoria = new Categoria
             {
-                NombreCategoria = "Pinturas",
-                DescripcionCategoria = "Categoría de pinturas"
+                NombreCategoria = "Juego de Sala",
+                DescripcionCategoria = "Juegos de sala de diversos modelos y tamaños"
             };
             context.Categorias.Add(categoria);
             await context.SaveChangesAsync();
@@ -108,7 +108,7 @@ namespace GestionInventarios.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Categoria>(viewResult.Model);
-            Assert.Equal("Pinturas", returnValue.NombreCategoria);
+            Assert.Equal("Juego de Sala", returnValue.NombreCategoria);
         }
 
         //Obtener detalles de la categoria cuando el Id es Valido
@@ -121,8 +121,8 @@ namespace GestionInventarios.Tests
             //Crea categoria
             var categoria = new Categoria
             {
-                NombreCategoria = "Pinturas",
-                DescripcionCategoria = "Categoría de pinturas"
+                NombreCategoria = "Juego de Sala",
+                DescripcionCategoria = "Juegos de sala de diversos modelos y tamaños"
             };
             context.Categorias.Add(categoria);
             await context.SaveChangesAsync();
@@ -132,7 +132,7 @@ namespace GestionInventarios.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Categoria>(viewResult.Model);
-            Assert.Equal("Pinturas", returnValue.NombreCategoria);
+            Assert.Equal("Juego de Sala", returnValue.NombreCategoria);
         }
 
         //No obtiene los detalles del registro cuando el id es invalido
@@ -157,8 +157,8 @@ namespace GestionInventarios.Tests
             //Crea nueva categoria
             var categoria = new Categoria
             {
-                NombreCategoria = "Pinturas",
-                DescripcionCategoria = "Categoría de pinturas"
+                NombreCategoria = "Juego de Sala",
+                DescripcionCategoria = "Juegos de sala de diversos modelos y tamaños"
             };
             context.Categorias.Add(categoria);
             await context.SaveChangesAsync();

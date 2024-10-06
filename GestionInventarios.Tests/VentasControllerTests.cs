@@ -14,15 +14,26 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
+            // Crea categoria asociado a la venta
+            var categoria = new Categoria
+            {
+                NombreCategoria = "Mueble",
+                DescripcionCategoria = "Muebles de prueba"
+            };
+
+            context.Categorias.Add(categoria);
+            await context.SaveChangesAsync();
+
             // Crea producto asociado a la venta
             var producto = new Producto
             {
-                IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                IdCategoria = categoria.ID,
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 10,
-                CostoProducto = 50
+                CostoProducto = 100
             };
+
             context.Productos.Add(producto);
             await context.SaveChangesAsync();
 
@@ -30,19 +41,25 @@ namespace GestionInventarios.Tests
             var venta = new Venta
             {
                 FechaVenta = DateTime.Now,
-                IdProducto = producto.ID,
                 UnidadesVenta = 5,
-                PrecioUnitarioVenta = 60,
-                PrecioTotalVenta = 300,
+                PrecioUnitarioVenta = 200,
+                PrecioTotalVenta = 200,
                 IdEmpleado = 1
             };
 
-            var result = await controller.Create(venta);
+            string Categoria = categoria.NombreCategoria;
+            string NombreProducto = producto.NombreProducto;
+            string DescripcionProducto = producto.DescripcionProducto;
+
+            var result = await controller.Create(Categoria,
+                                                NombreProducto,
+                                                DescripcionProducto, 
+                                                venta);
 
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectResult.ActionName);
 
-            var ventaCreada = await context.Ventas.FirstOrDefaultAsync(v => v.IdProducto == producto.ID);
+            var ventaCreada = await context.Ventas.FirstOrDefaultAsync(v => v.ID == venta.ID);
             Assert.NotNull(ventaCreada);
             Assert.Equal(5, ventaCreada.UnidadesVenta);
 
@@ -58,20 +75,51 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
+            // Crea categoria asociado a la venta
+            var categoria = new Categoria
+            {
+                NombreCategoria = "Mueble",
+                DescripcionCategoria = "Muebles de prueba"
+            };
+
+            context.Categorias.Add(categoria);
+            await context.SaveChangesAsync();
+
+            // Crea producto asociado a la venta
+            var producto = new Producto
+            {
+                IdCategoria = categoria.ID,
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
+                UnidadesProducto = 10,
+                CostoProducto = 100
+            };
+
+            context.Productos.Add(producto);
+            await context.SaveChangesAsync();
+
+            // Genera la nueva venta
             var venta = new Venta
             {
                 FechaVenta = DateTime.Now,
-                IdProducto = 1,
                 UnidadesVenta = 5,
-                PrecioUnitarioVenta = 60,
-                PrecioTotalVenta = 300,
+                PrecioUnitarioVenta = 200,
+                PrecioTotalVenta = 200,
                 IdEmpleado = 1
             };
+
+            string Categoria = categoria.NombreCategoria;
+            string NombreProducto = producto.NombreProducto;
+            string DescripcionProducto = producto.DescripcionProducto;
+
 
             // Error de validación en el PrecioUnitarioVenta
             controller.ModelState.AddModelError("PrecioUnitarioVenta", "El precio unitario es requerido.");
 
-            var result = await controller.Create(venta);
+            var result = await controller.Create(Categoria,
+                                                NombreProducto,
+                                                DescripcionProducto, 
+                                                venta);
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Venta>(viewResult.Model);
@@ -85,15 +133,26 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
+            // Crea categoria asociado a la venta
+            var categoria = new Categoria
+            {
+                NombreCategoria = "Mueble",
+                DescripcionCategoria = "Muebles de prueba"
+            };
+
+            context.Categorias.Add(categoria);
+            await context.SaveChangesAsync();
+
             // Crea producto asociado a la venta
             var producto = new Producto
             {
-                IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
-                UnidadesProducto = 3,
-                CostoProducto = 50
+                IdCategoria = categoria.ID,
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
+                UnidadesProducto = 10,
+                CostoProducto = 100
             };
+
             context.Productos.Add(producto);
             await context.SaveChangesAsync();
 
@@ -101,19 +160,27 @@ namespace GestionInventarios.Tests
             var venta = new Venta
             {
                 FechaVenta = DateTime.Now,
-                IdProducto = producto.ID,
                 UnidadesVenta = 5,
-                PrecioUnitarioVenta = 60,
-                PrecioTotalVenta = 300,
+                PrecioUnitarioVenta = 200,
+                PrecioTotalVenta = 200,
                 IdEmpleado = 1
             };
 
-            var result = await controller.Create(venta);
+            string Categoria = categoria.NombreCategoria;
+            string NombreProducto = producto.NombreProducto;
+            string DescripcionProducto = producto.DescripcionProducto;
+
+            // Error de validación en el PrecioUnitarioVenta
+            controller.ModelState.AddModelError("UnidadesVenta", "No se puede registrar la venta: No hay suficientes unidades del producto.");
+
+            var result = await controller.Create(Categoria,
+                                                NombreProducto,
+                                                DescripcionProducto, 
+                                                venta);
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Venta>(viewResult.Model);
             Assert.Equal(venta.UnidadesVenta, returnValue.UnidadesVenta);
-            Assert.Equal("No se puede registrar la venta: No hay suficientes unidades del producto.", controller.ViewBag.ErrorUnidades);
         }
 
         // No crear una venta cuando el precio de venta es menor que el costo del producto
@@ -123,15 +190,26 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
+            // Crea categoria asociado a la venta
+            var categoria = new Categoria
+            {
+                NombreCategoria = "Mueble",
+                DescripcionCategoria = "Muebles de prueba"
+            };
+
+            context.Categorias.Add(categoria);
+            await context.SaveChangesAsync();
+
             // Crea producto asociado a la venta
             var producto = new Producto
             {
-                IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                IdCategoria = categoria.ID,
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 10,
-                CostoProducto = 50
+                CostoProducto = 100
             };
+
             context.Productos.Add(producto);
             await context.SaveChangesAsync();
 
@@ -139,14 +217,20 @@ namespace GestionInventarios.Tests
             var venta = new Venta
             {
                 FechaVenta = DateTime.Now,
-                IdProducto = producto.ID,
                 UnidadesVenta = 5,
-                PrecioUnitarioVenta = 40, 
-                PrecioTotalVenta = 200,
+                PrecioUnitarioVenta = 1,
+                PrecioTotalVenta = 5,
                 IdEmpleado = 1
             };
 
-            var result = await controller.Create(venta);
+            string Categoria = categoria.NombreCategoria;
+            string NombreProducto = producto.NombreProducto;
+            string DescripcionProducto = producto.DescripcionProducto;
+
+            var result = await controller.Create(Categoria,
+                                                NombreProducto,
+                                                DescripcionProducto,
+                                                venta);
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Venta>(viewResult.Model);
@@ -161,28 +245,39 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
+            // Crea categoria asociado a la venta
+            var categoria = new Categoria
+            {
+                NombreCategoria = "Mueble",
+                DescripcionCategoria = "Muebles de prueba"
+            };
+
+            context.Categorias.Add(categoria);
+            await context.SaveChangesAsync();
+
             // Crea producto asociado a la venta
             var producto = new Producto
             {
-                IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                IdCategoria = categoria.ID,
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 10,
-                CostoProducto = 50
+                CostoProducto = 100
             };
+
             context.Productos.Add(producto);
             await context.SaveChangesAsync();
 
-            // Crea venta
+            // Genera la nueva venta
             var venta = new Venta
             {
                 FechaVenta = DateTime.Now,
-                IdProducto = producto.ID,
                 UnidadesVenta = 5,
-                PrecioUnitarioVenta = 60,
-                PrecioTotalVenta = 300,
+                PrecioUnitarioVenta = 200,
+                PrecioTotalVenta = 1000,
                 IdEmpleado = 1
             };
+
             context.Ventas.Add(venta);
             await context.SaveChangesAsync();
 
@@ -190,7 +285,16 @@ namespace GestionInventarios.Tests
             venta.UnidadesVenta = 3;
             venta.PrecioTotalVenta = 180;
 
-            var result = await controller.Edit(venta.ID, venta);
+
+            string Categoria = categoria.NombreCategoria;
+            string NombreProducto = producto.NombreProducto;
+            string DescripcionProducto = producto.DescripcionProducto;
+
+            var result = await controller.Edit(venta.ID,
+                                                Categoria,
+                                                NombreProducto,
+                                                DescripcionProducto,
+                                                venta);
 
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectResult.ActionName);
@@ -208,18 +312,49 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
+            // Crea categoria asociado a la venta
+            var categoria = new Categoria
+            {
+                NombreCategoria = "Mueble",
+                DescripcionCategoria = "Muebles de prueba"
+            };
+
+            context.Categorias.Add(categoria);
+            await context.SaveChangesAsync();
+
+            // Crea producto asociado a la venta
+            var producto = new Producto
+            {
+                IdCategoria = categoria.ID,
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
+                UnidadesProducto = 10,
+                CostoProducto = 100
+            };
+
+            context.Productos.Add(producto);
+            await context.SaveChangesAsync();
+
+            // Genera la nueva venta
             var venta = new Venta
             {
-                ID = 1,
                 FechaVenta = DateTime.Now,
-                IdProducto = 1,
                 UnidadesVenta = 5,
-                PrecioUnitarioVenta = 60,
-                PrecioTotalVenta = 300,
+                PrecioUnitarioVenta = 200,
+                PrecioTotalVenta = 1000,
                 IdEmpleado = 1
             };
 
-            var result = await controller.Edit(2, venta);
+
+            string Categoria = categoria.NombreCategoria;
+            string NombreProducto = producto.NombreProducto;
+            string DescripcionProducto = producto.DescripcionProducto;
+
+            var result = await controller.Edit(2,
+                                                Categoria,
+                                                NombreProducto,
+                                                DescripcionProducto,
+                                                venta);
 
             Assert.IsType<NotFoundResult>(result);
         }
@@ -231,21 +366,52 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
+            // Crea categoria asociado a la venta
+            var categoria = new Categoria
+            {
+                NombreCategoria = "Mueble",
+                DescripcionCategoria = "Muebles de prueba"
+            };
+
+            context.Categorias.Add(categoria);
+            await context.SaveChangesAsync();
+
+            // Crea producto asociado a la venta
+            var producto = new Producto
+            {
+                IdCategoria = categoria.ID,
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
+                UnidadesProducto = 10,
+                CostoProducto = 100
+            };
+
+            context.Productos.Add(producto);
+            await context.SaveChangesAsync();
+
+            // Genera la nueva venta
             var venta = new Venta
             {
-                ID = 1,
                 FechaVenta = DateTime.Now,
-                IdProducto = 1,
                 UnidadesVenta = 5,
-                PrecioUnitarioVenta = 60,
-                PrecioTotalVenta = 300,
+                PrecioUnitarioVenta = 200,
+                PrecioTotalVenta = 1000,
                 IdEmpleado = 1
             };
+
+
+            string Categoria = categoria.NombreCategoria;
+            string NombreProducto = producto.NombreProducto;
+            string DescripcionProducto = producto.DescripcionProducto;
 
             // Error de validación en el PrecioUnitarioVenta
             controller.ModelState.AddModelError("PrecioUnitarioVenta", "El precio unitario es requerido.");
 
-            var result = await controller.Edit(venta.ID, venta);
+            var result = await controller.Edit(venta.ID,
+                                                Categoria,
+                                                NombreProducto,
+                                                DescripcionProducto,
+                                                venta);
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Venta>(viewResult.Model);
@@ -259,35 +425,55 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
+            // Crea categoria asociado a la venta
+            var categoria = new Categoria
+            {
+                NombreCategoria = "Mueble",
+                DescripcionCategoria = "Muebles de prueba"
+            };
+
+            context.Categorias.Add(categoria);
+            await context.SaveChangesAsync();
+
             // Crea producto asociado a la venta
             var producto = new Producto
             {
-                IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                IdCategoria = categoria.ID,
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 10,
-                CostoProducto = 50
+                CostoProducto = 100
             };
+
             context.Productos.Add(producto);
             await context.SaveChangesAsync();
 
-            // Crea venta
+            // Genera la nueva venta
             var venta = new Venta
             {
                 FechaVenta = DateTime.Now,
-                IdProducto = producto.ID,
                 UnidadesVenta = 5,
-                PrecioUnitarioVenta = 40, 
-                PrecioTotalVenta = 200,
+                PrecioUnitarioVenta = 200,
+                PrecioTotalVenta = 1000,
                 IdEmpleado = 1
             };
+
             context.Ventas.Add(venta);
             await context.SaveChangesAsync();
 
             // Actualiza la venta
             venta.PrecioUnitarioVenta = 40;
 
-            var result = await controller.Edit(venta.ID, venta);
+
+            string Categoria = categoria.NombreCategoria;
+            string NombreProducto = producto.NombreProducto;
+            string DescripcionProducto = producto.DescripcionProducto;
+
+            var result = await controller.Edit(venta.ID,
+                                                Categoria,
+                                                NombreProducto,
+                                                DescripcionProducto,
+                                                venta);
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Venta>(viewResult.Model);
@@ -302,14 +488,14 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
-            // Crea producto y empleado asociados a la venta
+            // Crea producto asociado a la venta
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 10,
-                CostoProducto = 50
+                CostoProducto = 100
             };
             context.Productos.Add(producto);
 
@@ -327,10 +513,10 @@ namespace GestionInventarios.Tests
             {
                 FechaVenta = DateTime.Now,
                 IdProducto = producto.ID,
-                UnidadesVenta = 5,
-                PrecioUnitarioVenta = 60,
+                UnidadesVenta = 2,
+                PrecioUnitarioVenta = 150,
                 PrecioTotalVenta = 300,
-                IdEmpleado = empleado.ID
+                IdEmpleado = 1
             };
             context.Ventas.Add(venta);
             await context.SaveChangesAsync();
@@ -341,7 +527,7 @@ namespace GestionInventarios.Tests
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Venta>(viewResult.Model);
             Assert.Equal(venta.ID, returnValue.ID);
-            Assert.Equal("Pintura gris", returnValue.Producto.NombreProducto);
+            Assert.Equal("Closet", returnValue.Producto.NombreProducto);
             Assert.Equal("Juan", returnValue.Empleado.NombreEmpleado);
         }
 
@@ -364,20 +550,20 @@ namespace GestionInventarios.Tests
             var context = Setup.GetInMemoryDatabaseContext();
             var controller = new VentasController(context);
 
-            // Crea producto y empleado asociados a la venta
+            // Crea producto asociado a la venta
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Gavetero",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 10,
-                CostoProducto = 50
+                CostoProducto = 100
             };
             context.Productos.Add(producto);
 
             var empleado = new Empleado
             {
-                NombreEmpleado = "Juan",
+                NombreEmpleado = "Manuel",
                 ApellidoEmpleado = "Perez",
                 ComisionVentaEmpleado = 2
             };
@@ -389,8 +575,8 @@ namespace GestionInventarios.Tests
             {
                 FechaVenta = DateTime.Now,
                 IdProducto = producto.ID,
-                UnidadesVenta = 5,
-                PrecioUnitarioVenta = 60,
+                UnidadesVenta = 2,
+                PrecioUnitarioVenta = 150,
                 PrecioTotalVenta = 300,
                 IdEmpleado = empleado.ID
             };

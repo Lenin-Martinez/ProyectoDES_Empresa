@@ -21,35 +21,41 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Ventas
-        public async Task<IActionResult> Index(string fechaInicioTexto, string fechaFinTexto)
+        public async Task<IActionResult> Index(string fechaInicioTexto, string fechaFinTexto, string categoriaABuscar, string productoABuscar, string descripcionABuscar)
         {
 
-            var compras = from p in _context.Ventas
+            var ventas = from p in _context.Ventas
                 .Include(v => v.Empleado)
                 .Include(v => v.Producto)
                 .Include(v => v.Producto.Categoria)
                 select p;
 
-            DateTime fechaInicio;
-            DateTime fechaFin;
-
-            bool fechaInicioValida = DateTime.TryParse(fechaInicioTexto, out fechaInicio);
-            bool fechaFinValida = DateTime.TryParse(fechaFinTexto, out fechaFin);
-
-            if (fechaInicioValida && fechaFinValida)
+            if (!String.IsNullOrEmpty(fechaInicioTexto) && DateTime.TryParse(fechaInicioTexto, out DateTime fechaInicio))
             {
-                compras = compras.Where(p => p.FechaVenta >= fechaInicio && p.FechaVenta <= fechaFin);
-            }
-            else if (fechaInicioValida)
-            {
-                compras = compras.Where(p => p.FechaVenta >= fechaInicio);
-            }
-            else if (fechaFinValida)
-            {
-                compras = compras.Where(p => p.FechaVenta <= fechaFin);
+                ventas = ventas.Where(c => c.FechaVenta >= fechaInicio);
             }
 
-            return View(await compras.ToListAsync());
+            if (!String.IsNullOrEmpty(fechaFinTexto) && DateTime.TryParse(fechaFinTexto, out DateTime fechaFin))
+            {
+                ventas = ventas.Where(c => c.FechaVenta <= fechaFin);
+            }
+
+            if (!String.IsNullOrEmpty(categoriaABuscar))
+            {
+                ventas = ventas.Where(c => c.Producto.Categoria.NombreCategoria.Contains(categoriaABuscar));
+            }
+
+            if (!String.IsNullOrEmpty(productoABuscar))
+            {
+                ventas = ventas.Where(c => c.Producto.NombreProducto.Contains(productoABuscar));
+            }
+
+            if (!String.IsNullOrEmpty(descripcionABuscar))
+            {
+                ventas = ventas.Where(c => c.Producto.DescripcionProducto.Contains(descripcionABuscar));
+            }
+
+            return View(await ventas.ToListAsync());
         }
 
         // GET: Ventas/Details/5
@@ -85,7 +91,9 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
 
+
         //Funciones necesaria para filtrar de manera descendente
+
         public JsonResult GetProductosByCategoria(int id)
         {
             var productos = _context.Productos.Where(p => p.IdCategoria == id).Select(p => new
@@ -114,58 +122,77 @@ namespace ProyectoDES_Empresa.Controllers
             return Json(producto);
         }
 
+
         // POST: Ventas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("ID,IdCategoria,NombreProducto,DescripcionProducto,UnidadesProducto,CostoProducto")] Producto producto,
+            string CategoriaValor,
+            string NombreProductoValor,
+            string DescripcionProductoValor,
             [Bind("ID,FechaVenta,IdProducto,UnidadesVenta,PrecioUnitarioVenta,PrecioTotalVenta,IdEmpleado")] Venta venta)
         {
             ModelState.Remove("Empleado");
             ModelState.Remove("Producto");
-            ModelState.Remove("Producto.Categoria");
-            ModelState.Remove("Producto.CostoProducto");
-            ModelState.Remove("Producto.UnidadesProducto");
+
 
             if (ModelState.IsValid)
             {
-                var id = Convert.ToInt32(producto.NombreProducto);
+                // Verificar si el producto ya existe con los atributos
+                var existingCategory = _context.Categorias
+                    .FirstOrDefault(p => p.NombreCategoria == CategoriaValor);
 
-                var producto_Encontrado = await _context.Productos.FindAsync(id);
-
-                if (producto_Encontrado != null && venta.UnidadesVenta <= producto_Encontrado.UnidadesProducto)
+                if (existingCategory == null)
                 {
-                    if (venta.PrecioUnitarioVenta >= producto_Encontrado.CostoProducto)
-                    {
-                        //Restar las unidades vendidas de las unidades existentes
-                        producto_Encontrado.UnidadesProducto -= venta.UnidadesVenta;
-                        _context.Update(producto_Encontrado);
+                    return NotFound();
+                }
 
-                        // Agregar la venta
+                var existingProduct = _context.Productos
+                    .FirstOrDefault(p =>
+                                        p.IdCategoria == existingCategory.ID &&
+                                        p.NombreProducto == NombreProductoValor &&
+                                        p.DescripcionProducto == DescripcionProductoValor);
 
-                        venta.IdProducto = producto_Encontrado.ID;
-                        _context.Add(venta);
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
-                    }
-                    else
-                    {
-                        ViewBag.ErrorMessage = "No se puede registrar la venta: El precio de venta es menor que el costo del producto";
-                    }
-
+                if (existingProduct == null)
+                {
+                    return NotFound();
                 }
                 else
                 {
-                    ViewBag.ErrorUnidades = "No se puede registrar la venta: No hay suficientes unidades del producto.";
+                    if (existingProduct != null && venta.UnidadesVenta <= existingProduct.UnidadesProducto)
+                    {
+                        if (venta.PrecioUnitarioVenta >= existingProduct.CostoProducto)
+                        {
+                            //Restar las unidades vendidas de las unidades existentes
+                            existingProduct.UnidadesProducto -= venta.UnidadesVenta;
+                            _context.Update(existingProduct);
+
+                            // Agregar la venta
+
+                            venta.IdProducto = existingProduct.ID;
+                            _context.Add(venta);
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction(nameof(Index));
+                        }
+                        else
+                        {
+                            ViewBag.ErrorMessage = "No se puede registrar la venta: El precio de venta es menor que el costo del producto";
+                        }
+
+                    }
+                    else
+                    {
+                        ViewBag.ErrorUnidades = "No se puede registrar la venta: No hay suficientes unidades del producto.";
+                    }
                 }
             }
 
             ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria");
             ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto");
             ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto");
-            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdEmpleado);
+            ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado");
 
             return View(venta);
         }
@@ -204,15 +231,13 @@ namespace ProyectoDES_Empresa.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,
-            [Bind("ID,IdCategoria,NombreProducto,DescripcionProducto,UnidadesProducto,CostoProducto")] Producto producto,
+            string CategoriaValor,
+            string NombreProductoValor,
+            string DescripcionProductoValor,
             [Bind("ID,FechaVenta,IdProducto,UnidadesVenta,PrecioUnitarioVenta,PrecioTotalVenta,IdEmpleado")] Venta venta)
         {
             ModelState.Remove("Empleado");
             ModelState.Remove("Producto");
-
-            ModelState.Remove("Producto.Categoria");
-            ModelState.Remove("Producto.CostoProducto");
-            ModelState.Remove("Producto.UnidadesProducto");
 
             if (id != venta.ID)
             {
@@ -221,16 +246,32 @@ namespace ProyectoDES_Empresa.Controllers
 
             if (ModelState.IsValid)
             {
-                var id_producto = Convert.ToInt32(producto.NombreProducto);
+                // Verificar si el producto ya existe con los atributos
+                var existingCategory = _context.Categorias
+                    .FirstOrDefault(p => p.NombreCategoria == CategoriaValor);
 
-                // Obtener el producto correspondiente a la venta
-                var producto_Encontrado = await _context.Productos.FindAsync(id_producto);
+                if (existingCategory == null)
+                {
+                    return NotFound();
+                }
 
-                    if (producto_Encontrado != null && venta.PrecioUnitarioVenta >= producto_Encontrado.CostoProducto)
+                var existingProduct = _context.Productos
+                    .FirstOrDefault(p =>
+                                        p.IdCategoria == existingCategory.ID &&
+                                        p.NombreProducto == NombreProductoValor &&
+                                        p.DescripcionProducto == DescripcionProductoValor);
+
+                if (existingProduct == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    if (existingProduct != null && venta.PrecioUnitarioVenta >= existingProduct.CostoProducto)
                     {
                         try
                         {
-                        venta.IdProducto = producto_Encontrado.ID;
+                            venta.IdProducto = existingProduct.ID;
                             _context.Update(venta);
                             await _context.SaveChangesAsync();
                         }
@@ -250,9 +291,10 @@ namespace ProyectoDES_Empresa.Controllers
                     else
                     {
                         ViewBag.ErrorMessage = "No se puede actualizar la venta: El precio de venta es menor que el costo del producto";
-                    }               
+                    }
+                }
             }
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria", producto.IdCategoria);
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria");
             ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto", venta.IdProducto);
             ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto", venta.IdProducto);
             ViewData["IdEmpleado"] = new SelectList(_context.Empleados, "ID", "NombreEmpleado", venta.IdProducto);

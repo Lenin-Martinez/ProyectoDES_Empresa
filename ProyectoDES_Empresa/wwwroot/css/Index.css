@@ -375,3 +375,43 @@ small {
     margin-left: -28px;
     margin-top: -4px;
 }
+
+.container input[type="text"], input[type="number"], input[type="date"], input[type=password] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.contenedorInterno {
+    background-color: white;
+    padding: 30px;
+    min-height: 600px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.filtros1{
+    width: 16%;
+    padding-right: 0px;
+}
+
+.filtros2 {
+    width: 22%;
+    padding-right: 0px;
+}
+
+.filtros3 {
+    width: 2%;
+    padding-right: 0px;
+}

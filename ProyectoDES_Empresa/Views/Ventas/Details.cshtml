@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="container">
-        <br />
+        <div class="contenedorInterno">
         <h3> INFORMACIÓN DEL REGISTRO DE VENTA</h3>
         <div class="row">
             <div class="col">
@@ -40,10 +40,22 @@
                     @Html.DisplayFor(model => model.FechaVenta)
                 </dd>
                 <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Producto)
+                    Categoria
                 </dt>
                 <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Producto.Categoria.NombreCategoria) - @Html.DisplayFor(model => model.Producto.NombreProducto)
+                    @Html.DisplayFor(model => model.Producto.Categoria.NombreCategoria)
+                </dd>
+                <dt class="col-sm-3">
+                    Nombre de Producto
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Producto.NombreProducto)
+                </dd>
+                <dt class="col-sm-3">
+                    Descripción
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Producto.DescripcionProducto)
                 </dd>
                 <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.UnidadesVenta)
@@ -77,10 +89,7 @@
             <a asp-action="Index" class="btn btn-raised btn-secondary">Regresar</a>
         </div>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
+</div>
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

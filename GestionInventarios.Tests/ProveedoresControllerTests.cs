@@ -16,7 +16,7 @@ namespace GestionInventarios.Tests
 
             var proveedor = new Proveedor
             {
-                NombreProveedor = "ProPinturas",
+                NombreProveedor = "Duraban",
             };
 
             var result = await controller.Create(proveedor);
@@ -24,9 +24,9 @@ namespace GestionInventarios.Tests
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectResult.ActionName);
 
-            var proveedorCreado = await context.Proveedores.FirstOrDefaultAsync(c => c.NombreProveedor == "ProPinturas");
+            var proveedorCreado = await context.Proveedores.FirstOrDefaultAsync(c => c.NombreProveedor == "Duraban");
             Assert.NotNull(proveedorCreado);
-            Assert.Equal("ProPinturas", proveedorCreado.NombreProveedor);
+            Assert.Equal("Duraban", proveedorCreado.NombreProveedor);
         }
 
         // No ingresa el proveedor cuando el modelo no es válido
@@ -61,13 +61,13 @@ namespace GestionInventarios.Tests
             //Crea un nuevo proveedor
             var proveedor = new Proveedor
             {
-                NombreProveedor = "ProPinturas",
+                NombreProveedor = "Duraban",
             };
             context.Proveedores.Add(proveedor);
             await context.SaveChangesAsync();
 
             //Actualizacion de parametros
-            proveedor.NombreProveedor = "Super Pinturas";
+            proveedor.NombreProveedor = "LG";
 
             var result = await controller.Edit(proveedor.ID, proveedor);
 
@@ -77,7 +77,7 @@ namespace GestionInventarios.Tests
             //Verifica que la informacion ha sido actualizada
             var proveedorActualizado = context.Proveedores.FirstOrDefault(p => p.ID == proveedor.ID);
             Assert.NotNull(proveedorActualizado);
-            Assert.Equal("Super Pinturas", proveedorActualizado.NombreProveedor);
+            Assert.Equal("LG", proveedorActualizado.NombreProveedor);
         }
 
         //No Actualiza el proveedor cuando la informacion no es valida
@@ -90,7 +90,7 @@ namespace GestionInventarios.Tests
             //Crea un nuevo proveedor
             var proveedor = new Proveedor
             {
-                NombreProveedor = "ProPinturas",
+                NombreProveedor = "Duraban",
             };
             context.Proveedores.Add(proveedor);
             await context.SaveChangesAsync();
@@ -102,7 +102,7 @@ namespace GestionInventarios.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Proveedor>(viewResult.Model);
-            Assert.Equal("ProPinturas", returnValue.NombreProveedor);
+            Assert.Equal("Duraban", returnValue.NombreProveedor);
         }
 
         //Obtener detalles del proveedor cuando el Id es Valido
@@ -115,7 +115,7 @@ namespace GestionInventarios.Tests
             //Crea proveedor
             var proveedor = new Proveedor
             {
-                NombreProveedor = "ProPinturas",
+                NombreProveedor = "Duraban",
             };
             context.Proveedores.Add(proveedor);
             await context.SaveChangesAsync();
@@ -125,7 +125,7 @@ namespace GestionInventarios.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Proveedor>(viewResult.Model);
-            Assert.Equal("ProPinturas", returnValue.NombreProveedor);
+            Assert.Equal("Duraban", returnValue.NombreProveedor);
         }
 
         //No obtiene los detalles del registro cuando el id es invalido
@@ -150,7 +150,7 @@ namespace GestionInventarios.Tests
             //Crea nueva categoria
             var proveedor = new Proveedor
             {
-                NombreProveedor = "ProPinturas",
+                NombreProveedor = "Duraban",
             };
             context.Proveedores.Add(proveedor);
             await context.SaveChangesAsync();

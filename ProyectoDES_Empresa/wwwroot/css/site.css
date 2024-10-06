@@ -25,6 +25,7 @@ body {
 
 .content {
     flex: 1;
+    background-color: #f1f2eb;
 }
 
 footer {
@@ -53,3 +54,7 @@ footer p a {
         text-decoration: none;
     }
 
+header {
+    padding-top: 55px;
+    background: #f1f2eb
+}

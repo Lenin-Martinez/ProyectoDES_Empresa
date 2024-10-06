@@ -18,8 +18,8 @@ namespace GestionInventarios.Tests
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Gavetero",
+                DescripcionProducto = "1.30 Blanco",
                 UnidadesProducto = 10,
                 CostoProducto = 100
             };
@@ -38,7 +38,7 @@ namespace GestionInventarios.Tests
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectResult.ActionName);
 
-            var productoCreado = await context.Productos.FirstOrDefaultAsync(p => p.NombreProducto == "Pintura gris");
+            var productoCreado = await context.Productos.FirstOrDefaultAsync(p => p.NombreProducto == "Gavetero");
             Assert.NotNull(productoCreado);
             Assert.Equal(10, productoCreado.UnidadesProducto);
 
@@ -58,8 +58,8 @@ namespace GestionInventarios.Tests
             var productoExistente = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Gavetero",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 5,
                 CostoProducto = 100
             };
@@ -70,8 +70,8 @@ namespace GestionInventarios.Tests
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Gavetero",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 10,
                 CostoProducto = 100
             };
@@ -90,7 +90,7 @@ namespace GestionInventarios.Tests
             Assert.Equal("Index", redirectResult.ActionName);
 
             //Verifica la suma de las unidades existentes con las ingresadas
-            var productoActualizado = await context.Productos.FirstOrDefaultAsync(p => p.NombreProducto == "Pintura gris");
+            var productoActualizado = await context.Productos.FirstOrDefaultAsync(p => p.NombreProducto == "Gavetero");
             Assert.NotNull(productoActualizado);
             Assert.Equal(15, productoActualizado.UnidadesProducto);
 
@@ -110,8 +110,8 @@ namespace GestionInventarios.Tests
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 10,
                 CostoProducto = 100
             };
@@ -144,8 +144,8 @@ namespace GestionInventarios.Tests
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 5,
                 CostoProducto = 100
             };
@@ -183,8 +183,8 @@ namespace GestionInventarios.Tests
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 5,
                 CostoProducto = 100
             };
@@ -221,8 +221,8 @@ namespace GestionInventarios.Tests
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 5,
                 CostoProducto = 100
             };
@@ -230,7 +230,7 @@ namespace GestionInventarios.Tests
 
             var proveedor = new Proveedor
             {
-                NombreProveedor = "MasPinturas"
+                NombreProveedor = "Muebles El Roble"
             };
             context.Proveedores.Add(proveedor);
             await context.SaveChangesAsync();
@@ -252,7 +252,7 @@ namespace GestionInventarios.Tests
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Compra>(viewResult.Model);
             Assert.Equal(compra.ID, returnValue.ID);
-            Assert.Equal("Pintura gris", returnValue.Producto.NombreProducto);
+            Assert.Equal("Closet", returnValue.Producto.NombreProducto);
         }
 
 
@@ -279,8 +279,8 @@ namespace GestionInventarios.Tests
             var producto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 5,
                 CostoProducto = 100
             };
@@ -288,7 +288,7 @@ namespace GestionInventarios.Tests
 
             var proveedor = new Proveedor
             {
-                NombreProveedor = "MasPinturas"
+                NombreProveedor = "Muebles El Roble"
             };
             context.Proveedores.Add(proveedor);
             await context.SaveChangesAsync();

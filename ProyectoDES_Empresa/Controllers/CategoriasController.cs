@@ -67,6 +67,17 @@ namespace ProyectoDES_Empresa.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Verificar si la categoría ya está registrada
+                var categoriaExistente = await _context.Categorias
+                    .Where(c => c.NombreCategoria == categoria.NombreCategoria)
+                    .FirstOrDefaultAsync();
+
+                if (categoriaExistente != null)
+                {
+                    ViewBag.Error = "Error: La categoría ya está registrada.";
+                    return View(categoria);
+                }
+
                 _context.Add(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -104,6 +115,17 @@ namespace ProyectoDES_Empresa.Controllers
 
             if (ModelState.IsValid)
             {
+                // Verificar si la categoría ya está registrada
+                var categoriaExistente = await _context.Categorias
+                    .Where(c => c.NombreCategoria == categoria.NombreCategoria)
+                    .FirstOrDefaultAsync();
+
+                if (categoriaExistente != null)
+                {
+                    ViewBag.Error = "Error: La categoría ya está registrada.";
+                    return View(categoria);
+                }
+
                 try
                 {
                     _context.Update(categoria);

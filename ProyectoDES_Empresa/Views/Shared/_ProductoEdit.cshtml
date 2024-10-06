@@ -31,27 +31,27 @@
                 <div class="form-group">
                     <label asp-for="IdCategoria" class="control-label"></label>
                     <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
+                    <input type="hidden" id="CategoriaValor" name="CategoriaValor" />
                 </div>
 
                 <div class="form-group">
                     <label asp-for="NombreProducto" class="control-label"></label>
                     <select asp-for="NombreProducto" class="form-control" asp-items="ViewBag.NombreProducto"></select>
+                    <input type="hidden" id="NombreProductoValor" name="NombreProductoValor" />
                 </div>
 
                 <div class="form-group">
                     <label asp-for="DescripcionProducto" class="control-label"></label>
                     <select asp-for="DescripcionProducto" class="form-control" asp-items="ViewBag.DescripcionProducto"></select>
+                    <input type="hidden" id="DescripcionProductoValor" name="DescripcionProductoValor" />
                 </div>
 
                 <div class="form-group">
                     <label asp-for="CostoProducto" class="control-label"></label>
                     <select asp-for="CostoProducto" class="form-control" asp-items="ViewBag.CostoProducto"></select>
+                    <input type="hidden" id="CostoProductoValor" name="CostoProductoValor" />
                 </div>
 
-                @* <div class="form-group">
-                    <label asp-for="NombreProducto" class="control-label"></label>
-                    <select asp-for="NombreProducto" class="form-control" asp-items="ViewBag.IdProducto"></select>
-                </div> *@
 
             </div>
         </div>
@@ -64,7 +64,44 @@
 
     <script>
         $(document).ready(function () {
+
+            //Asigna el primer valor para que no pueda enviarse vacio
+            $('#IdCategoria').prop('selectedIndex', 0);
+            var DescripcionInicialText = $('#IdCategoria option:selected').text();
+            $('#CategoriaValor').val(DescripcionInicialText);
+
+            $('#NombreProducto').prop('selectedIndex', 0);
+            var NombreProductoText = $('#NombreProducto option:selected').text();
+            $('#NombreProductoValor').val(NombreProductoText);
+
+            $('#DescripcionProducto').prop('selectedIndex', 0);
+            var DescripcionProductoText = $('#DescripcionProducto option:selected').text();
+            $('#DescripcionProductoValor').val(DescripcionProductoText);
+
+            $('#CostoProducto').prop('selectedIndex', 0);
+            var CostoProductoText = $('#CostoProducto option:selected').text();
+            $('#CostoProductoValor').val(CostoProductoText);
+
+
+            //Asigna valores en relacion de los elementos seleccionados
+
+            function seleccionarPrimerElemento() {
+                //Funciones Automaticas (Siempre se asigna la primera opcion en caso el usuario no lo cambie)
+                $('#DescripcionProducto').prop('selectedIndex', 0);
+                var DescripcionProductoText = $('#DescripcionProducto option:selected').text();
+                $('#DescripcionProductoValor').val(DescripcionProductoText);
+
+
+                $('#CostoProducto').prop('selectedIndex', 0);
+                var CostoProductoText = $('#CostoProducto option:selected').text();
+                $('#CostoProductoValor').val(CostoProductoText);
+            }
+
+
             $('#IdCategoria').change(function () {
+                var CategoriaText = $(this).find("option:selected").text();
+                $('#CategoriaValor').val(CategoriaText);
+
                 var categoriaId = $(this).val();
                 $.ajax({
                     url: '@Url.Action("GetProductosByCategoria")',
@@ -79,11 +116,20 @@
                             $('#DescripcionProducto').append($('<option>', { value: item.id, text: item.descripcion }));
                             $('#CostoProducto').append($('<option>', { value: item.id, text: item.costo }));
                         });
+
+                        $('#NombreProducto').prop('selectedIndex', 0);
+                        var NombreProductoText = $('#NombreProducto option:selected').text();
+                        $('#NombreProductoValor').val(NombreProductoText);
+
+                        seleccionarPrimerElemento();
                     }
                 });
             });
 
             $('#NombreProducto').change(function () {
+                var NombreProductoText = $(this).find("option:selected").text();
+                $('#NombreProductoValor').val(NombreProductoText);
+
                 var productoId = $(this).val();
                 $.ajax({
                     url: '@Url.Action("GetProductoDetalles")',
@@ -94,9 +140,23 @@
                         $('#CostoProducto').empty();
                         $('#DescripcionProducto').append($('<option>', { value: data.id, text: data.descripcion }));
                         $('#CostoProducto').append($('<option>', { value: data.id, text: data.costo }));
+
+                        seleccionarPrimerElemento();
                     }
                 });
             });
+
+            //Funciones por seleccion manual (Siempre se asigna la primera opcion en caso el usuario no lo cambie)
+            $('#DescripcionProducto').change(function () {
+                var selectedText = $(this).find("option:selected").text();
+                $('#DescripcionProductoValor').val(selectedText);
+            });
+
+            $('#CostoProducto').change(function () {
+                var selectedText = $(this).find("option:selected").text();
+                $('#CostoProductoValor').val(selectedText);
+            });
+
         });
     </script>
 

@@ -21,18 +21,24 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Empleados
-        public async Task<IActionResult> Index(string textoABuscar)
+        public async Task<IActionResult> Index(string nombreABuscar, string apellidoABuscar)
         {
-            var empleados = from p in _context.Empleados
-                              select p;
+            var empleados = from e in _context.Empleados
+                            select e;
 
-            if (!String.IsNullOrEmpty(textoABuscar))
+            if (!String.IsNullOrEmpty(nombreABuscar))
             {
-                empleados = empleados.Where(p => p.NombreEmpleado.Contains(textoABuscar));
+                empleados = empleados.Where(e => e.NombreEmpleado.Contains(nombreABuscar));
+            }
+
+            if (!String.IsNullOrEmpty(apellidoABuscar))
+            {
+                empleados = empleados.Where(e => e.ApellidoEmpleado.Contains(apellidoABuscar));
             }
 
             return View(await empleados.ToListAsync());
         }
+
 
         // GET: Empleados/Details/5
         public async Task<IActionResult> Details(int? id)

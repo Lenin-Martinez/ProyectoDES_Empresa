@@ -1,7 +1,7 @@
 ﻿@model ProyectoDES_Empresa.Models.Usuario
 
 @{
-    ViewData["Title"] = "Eliminar Usuario";
+    ViewData["Title"] = "Eliminar";
 }
 
 <html>
@@ -17,6 +17,7 @@
 </head>
 <body>
     <div class="container">
+        <div class="contenedorInterno">
         <br /><br />
         <h3> ELIMINAR USUARIO </h3>
         <h4>¿Estás seguro que deseas eliminar este usuario?</h4>
@@ -30,6 +31,7 @@
                     @Html.DisplayFor(model => model.CorreoUsuario)
                 </dd>
             </dl>
+            <hr />
             <br /><br />
             <form asp-action="Eliminar">
                 <input type="hidden" asp-for="ID" />
@@ -37,13 +39,8 @@
                 <a asp-action="Index" class="btn btn-raised btn-secondary">Cancelar</a>
             </form>
         </div>
+        </div>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
