@@ -17,9 +17,9 @@ namespace GestionInventarios.Tests
             var nuevoProducto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
-                UnidadesProducto = 100,
+                NombreProducto = "Gavetero",
+                DescripcionProducto = "1.00 Blanco",
+                UnidadesProducto = 10,
                 CostoProducto = 124.99m
             };
 
@@ -28,10 +28,10 @@ namespace GestionInventarios.Tests
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal(nameof(controller.Index), redirectResult.ActionName);
 
-            var productoEnDb = context.Productos.FirstOrDefault(p => p.NombreProducto == "Pintura gris" && p.IdCategoria == 1);
+            var productoEnDb = context.Productos.FirstOrDefault(p => p.NombreProducto == "Gavetero" && p.IdCategoria == 1);
             Assert.NotNull(productoEnDb);
-            Assert.Equal("Pintura gris", productoEnDb.NombreProducto);
-            Assert.Equal(100, productoEnDb.UnidadesProducto);
+            Assert.Equal("Gavetero", productoEnDb.NombreProducto);
+            Assert.Equal(10, productoEnDb.UnidadesProducto);
             Assert.Equal(124.99m, productoEnDb.CostoProducto);
         }
 
@@ -44,8 +44,8 @@ namespace GestionInventarios.Tests
             var nuevoProducto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 100,
                 CostoProducto = 124.99m
             };
@@ -57,7 +57,7 @@ namespace GestionInventarios.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsType<Producto>(viewResult.Model);
-            Assert.Equal("Pintura gris", model.NombreProducto);
+            Assert.Equal("Closet", model.NombreProducto);
             Assert.False(controller.ModelState.IsValid);
         }
 
@@ -71,8 +71,8 @@ namespace GestionInventarios.Tests
             var productoExistente = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Gavetero",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 50,
                 CostoProducto = 124.99m
             };
@@ -82,8 +82,8 @@ namespace GestionInventarios.Tests
             var nuevoProducto = new Producto
             {
                 IdCategoria = 1,
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Gavetero",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 100,
                 CostoProducto = 124.99m
             };
@@ -93,9 +93,9 @@ namespace GestionInventarios.Tests
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal(nameof(controller.Index), redirectResult.ActionName);
 
-            var productoEnDb = context.Productos.FirstOrDefault(p => p.NombreProducto == "Pintura gris" && p.IdCategoria == 1);
+            var productoEnDb = context.Productos.FirstOrDefault(p => p.NombreProducto == "Gavetero" && p.IdCategoria == 1);
             Assert.NotNull(productoEnDb);
-            Assert.Equal("Pintura gris", productoEnDb.NombreProducto);
+            Assert.Equal("Gavetero", productoEnDb.NombreProducto);
             //Valida la suma de las unidades nuevas con las existentes.
             Assert.Equal(150, productoEnDb.UnidadesProducto);
             Assert.Equal(124.99m, productoEnDb.CostoProducto);
@@ -109,8 +109,8 @@ namespace GestionInventarios.Tests
             var controller = new ProductosController(context);
             var producto = new Producto
             {
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 100,
                 CostoProducto = 124.99m,
                 IdCategoria = 1
@@ -122,7 +122,7 @@ namespace GestionInventarios.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Producto>(viewResult.Model);
-            Assert.Equal("Pintura gris", returnValue.NombreProducto);
+            Assert.Equal("Closet", returnValue.NombreProducto);
         }
 
         //Cuando el ID es no valido, responde con un NotFound
@@ -145,8 +145,8 @@ namespace GestionInventarios.Tests
             var controller = new ProductosController(context);
             var producto = new Producto
             {
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 100,
                 CostoProducto = 124.99m,
                 IdCategoria = 1
@@ -155,8 +155,8 @@ namespace GestionInventarios.Tests
             await context.SaveChangesAsync();
 
             //Actulizacion de parametros
-            producto.NombreProducto = "Pintura morada";
-            producto.DescripcionProducto = "Pintura para exteriores morada";
+            producto.NombreProducto = "Chinero";
+            producto.DescripcionProducto = "1.50 Cafe";
 
             var result = await controller.Edit(producto.ID, producto);
 
@@ -165,8 +165,8 @@ namespace GestionInventarios.Tests
 
             var productoEnDb = context.Productos.FirstOrDefault(p => p.ID == producto.ID);
             Assert.NotNull(productoEnDb);
-            Assert.Equal("Pintura morada", productoEnDb.NombreProducto);
-            Assert.Equal("Pintura para exteriores morada", productoEnDb.DescripcionProducto);
+            Assert.Equal("Chinero", productoEnDb.NombreProducto);
+            Assert.Equal("1.50 Cafe", productoEnDb.DescripcionProducto);
         }
 
         //No edita el registro cuando la informacion es invalida para la actualizacion
@@ -177,8 +177,8 @@ namespace GestionInventarios.Tests
             var controller = new ProductosController(context);
             var producto = new Producto
             {
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 100,
                 CostoProducto = 124.99m,
                 IdCategoria = 1
@@ -193,7 +193,7 @@ namespace GestionInventarios.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var returnValue = Assert.IsType<Producto>(viewResult.Model);
-            Assert.Equal("Pintura gris", returnValue.NombreProducto);
+            Assert.Equal("Closet", returnValue.NombreProducto);
         }
 
         //Elimina cuando el ID es valido y otras tablas no dependen de este registro
@@ -204,8 +204,8 @@ namespace GestionInventarios.Tests
             var controller = new ProductosController(context);
             var producto = new Producto
             {
-                NombreProducto = "Pintura gris",
-                DescripcionProducto = "Pintura para exteriores gris",
+                NombreProducto = "Closet",
+                DescripcionProducto = "1.00 Blanco",
                 UnidadesProducto = 100,
                 CostoProducto = 124.99m,
                 IdCategoria = 1

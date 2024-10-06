@@ -21,7 +21,7 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Compras
-        public async Task<IActionResult> Index(string fechaInicioTexto, string fechaFinTexto)
+        public async Task<IActionResult> Index(string fechaInicioTexto, string fechaFinTexto, string categoriaABuscar, string productoABuscar, string descripcionABuscar)
         {
             var compras = from p in _context.Compras
                             .Include(p => p.Producto)
@@ -29,23 +29,29 @@ namespace ProyectoDES_Empresa.Controllers
                             .Include(c => c.Proveedor)
                             select p;
 
-            DateTime fechaInicio;
-            DateTime fechaFin;
-
-            bool fechaInicioValida = DateTime.TryParse(fechaInicioTexto, out fechaInicio);
-            bool fechaFinValida = DateTime.TryParse(fechaFinTexto, out fechaFin);
-
-            if (fechaInicioValida && fechaFinValida)
+            if (!String.IsNullOrEmpty(fechaInicioTexto) && DateTime.TryParse(fechaInicioTexto, out DateTime fechaInicio))
             {
-                compras = compras.Where(p => p.FechaCompra >= fechaInicio && p.FechaCompra <= fechaFin);
+                compras = compras.Where(c => c.FechaCompra >= fechaInicio);
             }
-            else if (fechaInicioValida)
+
+            if (!String.IsNullOrEmpty(fechaFinTexto) && DateTime.TryParse(fechaFinTexto, out DateTime fechaFin))
             {
-                compras = compras.Where(p => p.FechaCompra >= fechaInicio);
+                compras = compras.Where(c => c.FechaCompra <= fechaFin);
             }
-            else if (fechaFinValida)
+
+            if (!String.IsNullOrEmpty(categoriaABuscar))
             {
-                compras = compras.Where(p => p.FechaCompra <= fechaFin);
+                compras = compras.Where(c => c.Producto.Categoria.NombreCategoria.Contains(categoriaABuscar));
+            }
+
+            if (!String.IsNullOrEmpty(productoABuscar))
+            {
+                compras = compras.Where(c => c.Producto.NombreProducto.Contains(productoABuscar));
+            }
+
+            if (!String.IsNullOrEmpty(descripcionABuscar))
+            {
+                compras = compras.Where(c => c.Producto.DescripcionProducto.Contains(descripcionABuscar));
             }
 
             return View(await compras.ToListAsync());
@@ -154,7 +160,6 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
 
-        //Get original
         // GET: Compras/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -181,15 +186,15 @@ namespace ProyectoDES_Empresa.Controllers
             }
             ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria", prod.IdCategoria);
 
-            ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto", compras.IdProducto);
-            ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto", compras.IdProducto);
-            ViewData["CostoProducto"] = new SelectList(_context.Productos, "CostoProducto", "CostoProducto", compras.IdProducto);
-
+            ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto", prod.NombreProducto);
+            ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto", compras.Producto.DescripcionProducto);
+            ViewData["CostoProducto"] = new SelectList(_context.Productos, "CostoProducto", "CostoProducto", compras.Producto.CostoProducto);
 
             return View(compras);
         }
-        
+
         //Funciones necesaria para filtrar de manera descendente
+
         public JsonResult GetProductosByCategoria(int id)
         {
             var productos = _context.Productos.Where(p => p.IdCategoria == id).Select(p => new
@@ -218,16 +223,16 @@ namespace ProyectoDES_Empresa.Controllers
             return Json(producto);
         }
 
-
-
-
         // POST: Compras/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,
-            [Bind("ID,IdCategoria,NombreProducto,DescripcionProducto,UnidadesProducto,CostoProducto")] Producto producto,
+            string CategoriaValor,
+            string NombreProductoValor,
+            string DescripcionProductoValor,
+            string CostoProductoValor,
             [Bind("ID,FechaCompra,IdProveedor,IdProducto,UnidadesCompra")] Compra compra)
         {
             ModelState.Remove("Proveedor");
@@ -244,16 +249,29 @@ namespace ProyectoDES_Empresa.Controllers
             {
                 try
                 {
-                    var IdProd = Convert.ToInt32(producto.NombreProducto);
+                    // Verificar si el producto ya existe con los atributos
+                    var existingCategory = _context.Categorias
+                        .FirstOrDefault(p => p.NombreCategoria == CategoriaValor);
 
-                    var productoEncontrado = await _context.Productos.FindAsync(IdProd);
-                    if (productoEncontrado == null)
+                    if (existingCategory == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var existingProduct = _context.Productos
+                        .FirstOrDefault(p =>
+                                            p.IdCategoria == existingCategory.ID &&
+                                            p.NombreProducto == NombreProductoValor &&
+                                            p.DescripcionProducto == DescripcionProductoValor &&
+                                            p.CostoProducto == Convert.ToDecimal(CostoProductoValor));
+
+                    if (existingProduct == null)
                     {
                         return NotFound();
                     }
                     else
                     {
-                        compra.IdProducto = productoEncontrado.ID;
+                        compra.IdProducto = existingProduct.ID;
 
                         _context.Update(compra);
                         await _context.SaveChangesAsync();
@@ -275,9 +293,20 @@ namespace ProyectoDES_Empresa.Controllers
                 }
             }
 
-            ViewData["IdProducto"] = new SelectList(_context.Productos, "ID", "NombreProducto", compra.IdProducto);
+            //Sector de compras
             ViewData["IdProveedor"] = new SelectList(_context.Proveedores, "ID", "NombreProveedor", compra.IdProveedor);
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria", producto.IdCategoria);
+
+            //Sector de producto
+            var prod = await _context.Productos.FindAsync(compra.IdProducto);
+            if (prod == null)
+            {
+                return NotFound();
+            }
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "ID", "NombreCategoria", prod.IdCategoria);
+
+            ViewData["NombreProducto"] = new SelectList(_context.Productos, "NombreProducto", "NombreProducto", prod.NombreProducto);
+            ViewData["DescripcionProducto"] = new SelectList(_context.Productos, "DescripcionProducto", "DescripcionProducto", compra.Producto.DescripcionProducto);
+            ViewData["CostoProducto"] = new SelectList(_context.Productos, "CostoProducto", "CostoProducto", compra.Producto.CostoProducto);
 
             return View(compra);
 

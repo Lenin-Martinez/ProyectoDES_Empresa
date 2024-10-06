@@ -67,6 +67,17 @@ namespace ProyectoDES_Empresa.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Verificar si el proveedor ya está registrado
+                var proveedorExistente = await _context.Proveedores
+                    .Where(p => p.NombreProveedor == proveedor.NombreProveedor)
+                    .FirstOrDefaultAsync();
+
+                if (proveedorExistente != null)
+                {
+                    ViewBag.Error = "El proveedor ya está registrado.";
+                    return View(proveedor);
+                }
+              
                 _context.Add(proveedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -104,6 +115,17 @@ namespace ProyectoDES_Empresa.Controllers
 
             if (ModelState.IsValid)
             {
+                // Verificar si el proveedor ya está registrado
+                var proveedorExistente = await _context.Proveedores
+                    .Where(p => p.NombreProveedor == proveedor.NombreProveedor)
+                    .FirstOrDefaultAsync();
+
+                if (proveedorExistente != null)
+                {
+                    ViewBag.Error = "El proveedor ya está registrado.";
+                    return View(proveedor);
+                }
+
                 try
                 {
                     _context.Update(proveedor);

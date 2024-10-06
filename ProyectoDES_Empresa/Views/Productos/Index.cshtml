@@ -16,68 +16,75 @@
 </head>
 <body>
     <div class="container">
-        <h3>INVENTARIOS</h3>
-        <div class="row">
-            <div class="col">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a asp-area="" asp-controller="Productos" asp-action="Create">Registrar nuevo producto </a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Inventarios</li>
-                    </ol>
-                </nav>
+        <div class="contenedorInterno">
+            @* Sección Título *@
+            <div class="row align-items-center mb-3">
+                <div class="col">
+                    <h3>INVENTARIOS</h3>
+                </div>
+                <div class="col text-right">
+                    <a asp-area="" asp-controller="Productos" asp-action="Create" class="btn btn-raised btn-primary">Agregar producto</a>
+                </div>
             </div>
-        </div>
-        <form asp-controller="Productos" asp-action="Index" method="get">
-                <dl class="row">
-                    <dd class="col-sm-11">
-                        <input type="text" name="textoABuscar" class="form-control" placeholder="Buscar por descripción..."/>
-                    </dd>
-                <dd class="busqueda col-sm-1">
-                    <button type="submit" class="btn btn-raised btn-primary btn-just-icon btn-sm">
-                        <i class="material-icons">search</i>
-                    </button>
-                    </dd>
-                </dl>
-        </form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescripcionProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnidadesProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CostoProducto)
-            </th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria.NombreCategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescripcionProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnidadesProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CostoProducto)
-            </td>
+
+            @* Sección de Búsqueda *@
+            <div class="row">
+                <div class="col">
+                    <div class="p-0" style="padding-bottom: 0.5rem;">
+                        <form asp-controller="Productos" asp-action="Index" method="get">
+                            <div class="form-group d-flex align-items-center mb-0">
+                                <input type="text" name="categoriaABuscar" class="form-control mr-2 flex-grow-1" placeholder="Filtrar por categoría..." />
+                                <input type="text" name="productoABuscar" class="form-control mr-2 flex-grow-1" placeholder="Filtrar por producto..." />
+                                <input type="text" name="descripcionABuscar" class="form-control mr-2 flex-grow-1" placeholder="Filtrar por descripción..." />
+                                <button type="submit" class="btn btn-raised btn-primary btn-just-icon btn-sm my-auto">
+                                    <i class="material-icons">search</i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            @* Sección de Tabla *@
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Categoria)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombreProducto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DescripcionProducto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UnidadesProducto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CostoProducto)
+                        </th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categoria.NombreCategoria)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DescripcionProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnidadesProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CostoProducto)
+                        </td>
                         <td class="td-actions">
                             <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-raised btn-primary btn-just-icon btn-sm" rel="tooltip" data-original-title="" title="">
                                 <i class="material-icons">edit</i>
@@ -89,18 +96,12 @@
                                 <i class="material-icons">delete</i>
                             </a>
                         </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>

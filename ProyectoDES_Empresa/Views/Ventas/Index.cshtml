@@ -16,32 +16,53 @@
 </head>
 <body>
     <div class="container">
-        <h3>REGISTRO DE VENTAS</h3>
-        <div class="row">
-            <div class="col">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a asp-area="" asp-controller="Ventas" asp-action="Create">Registrar nueva venta </a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Listado de Ventas</li>
-                    </ol>
-                </nav>
+        <div class="contenedorInterno">
+
+            @* Sección Título *@
+            <div class="row align-items-center mb-3">
+                <div class="col">
+                    <h3>REGISTRO DE VENTAS</h3>
+                </div>
+                <div class="col text-right">
+                    <a asp-area="" asp-controller="Ventas" asp-action="Create" class="btn btn-raised btn-primary">Agregar venta</a>
+                </div>
             </div>
-        </div>
-        <form asp-controller="Ventas" asp-action="Index" method="get">
-            <dl class="row">
-                <dd class="col-sm-5">
-                    <input type="date" name="fechaInicioTexto" class="form-control" placeholder="Fecha Inicial (DD/MM/YYYY)" />
-                </dd>
-                <dd class="col-sm-5">
-                    <input type="date" name="fechaFinTexto" class="form-control" placeholder="Fecha Final (DD/MM/YYYY)" />
-                </dd>
-                <dd class="col-sm-1">
-                    <button type="submit" class="btn btn-raised btn-primary btn-just-icon btn-sm">
-                        <i class="material-icons">search</i>
-                    </button>
-                </dd>
-            </dl>
-        </form>
+
+            @* Sección de Búsqueda *@
+            <div class="row">
+                <div class="col">
+                    <div class="p-0" style="padding-bottom: 0.5rem;">
+                    <form asp-controller="Ventas" asp-action="Index" method="get">
+                        <div class="form-group d-flex align-items-center mb-0">
+                                <dl class="row">
+                                    <dd class="filtros1">
+                                        <input type="date" name="fechaInicioTexto" class="form-control" placeholder="Fecha Inicial (DD/MM/YYYY)" />
+                                    </dd>
+                                    <dd class="filtros1">
+                                        <input type="date" name="fechaFinTexto" class="form-control" placeholder="Fecha Final (DD/MM/YYYY)" />
+                                    </dd>
+                                    <dd class="filtros2">
+                                        <input type="text" name="categoriaABuscar" class="form-control" placeholder="Buscar categoría..." />
+                                    </dd>
+                                    <dd class="filtros2">
+                                        <input type="text" name="productoABuscar" class="form-control" placeholder="Buscar producto..." />
+                                    </dd>
+                                    <dd class="filtros2">
+                                        <input type="text" name="descripcionABuscar" class="form-control" placeholder="Buscar descripción..." />
+                                    </dd>
+                                    <dd class="filtros3">
+                                        <button type="submit" class="btn btn-raised btn-primary btn-just-icon btn-sm">
+                                            <i class="material-icons">search</i>
+                                        </button>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+                @* Sección de Tabla *@
 <table class="table">
     <thead>
         <tr>
@@ -49,19 +70,25 @@
                 @Html.DisplayNameFor(model => model.FechaVenta)
             </th>
             <th>
+                Categoria
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Producto)
+            </th>
+            <th>
+                Descripción
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UnidadesVenta)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PrecioTotalVenta)
+                Total ($)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Empleado)
             </th>
             <th>
-                Comisión Vendedor ($)
+                Comisión ($)
             </th>
             <th>Acciones</th>
         </tr>
@@ -73,7 +100,13 @@
                 @Html.DisplayFor(modelItem => item.FechaVenta)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Producto.Categoria.NombreCategoria) - @Html.DisplayFor(modelItem => item.Producto.NombreProducto)
+                @Html.DisplayFor(modelItem => item.Producto.Categoria.NombreCategoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.NombreProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.DescripcionProducto)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UnidadesVenta)
@@ -107,14 +140,7 @@
             </tbody>
         </table>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-
+</div>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

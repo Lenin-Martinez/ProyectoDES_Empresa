@@ -16,30 +16,34 @@
 </head>
 <body >
     <div class="container">
-        <h3>REGISTRO DE USUARIOS</h3>
-        <div class="row">
-            <div class="col">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a asp-area="" asp-controller="Usuarios" asp-action="Registrar">Registrar nuevo usuario </a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Listado de Usuarios</li>
-                    </ol>
-                </nav>
+        <div class="contenedorInterno">
+            @* Sección Título *@
+            <div class="row align-items-center mb-3">
+                <div class="col">
+                    <h3>REGISTRO DE USUARIOS</h3>
+                </div>
+                <div class="col text-right">
+                    <a asp-area="" asp-controller="Usuarios" asp-action="Registrar" class="btn btn-raised btn-primary">Agregar usuario</a>
+                </div>
             </div>
-        </div>
-        <form asp-controller="Usuarios" asp-action="Index" method="get">
-            <dl class="row">
-                <dd class="col-sm-11">
-                    <input type="text" name="textoABuscar" class="form-control" placeholder="Buscar por correo..." />
-                </dd>
-                <dd class="busqueda col-sm-1">
-                    <button type="submit" class="btn btn-raised btn-primary btn-just-icon btn-sm">
-                        <i class="material-icons">search</i>
-                    </button>
-                </dd>
-            </dl>
-        </form>
 
+            @* Sección de Búsqueda *@
+            <div class="row">
+                <div class="col">
+                    <div class="p-0" style="padding-bottom: 0.5rem;">
+                        <form asp-controller="Usuarios" asp-action="Index" method="get">
+                            <div class="form-group d-flex align-items-center mb-0">
+                                <input type="text" name="textoABuscar" class="form-control mr-2 flex-grow-1" placeholder="Filtrar por correo..." />
+                                <button type="submit" class="btn btn-raised btn-primary btn-just-icon btn-sm my-auto">
+                                    <i class="material-icons">search</i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        @* Sección de Tabla *@
         <table class="table">
             <thead>
                 <tr>
@@ -69,18 +73,7 @@
             </tbody>
         </table>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+    </div>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>

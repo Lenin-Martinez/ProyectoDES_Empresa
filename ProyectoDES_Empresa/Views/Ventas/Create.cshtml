@@ -18,6 +18,7 @@
 </head>
 <body>
     <div class="container">
+        <div class="contenedorInterno">
         <h3> REGISTRAR VENTAS</h3>
         <div class="row">
             <div class="col">
@@ -60,20 +61,23 @@
                             </div>
 
 
-
                             <div class="form-group">
                                 <label asp-for="Producto.IdCategoria" class="control-label"></label>
-                                <select asp-for="Producto.IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Producto.NombreProducto" class="control-label"></label>
-                                <select asp-for="Producto.NombreProducto" class="form-control" asp-items="ViewBag.NombreProducto"></select>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Producto.DescripcionProducto" class="control-label"></label>
-                                <select asp-for="Producto.DescripcionProducto" class="form-control" asp-items="ViewBag.DescripcionProducto"></select>
+                                <select asp-for="Producto.IdCategoria" id="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
+                                <input type="hidden" id="CategoriaValor" name="CategoriaValor" />
                             </div>
 
+                            <div class="form-group">
+                                <label asp-for="Producto.NombreProducto" class="control-label"></label>
+                                <select asp-for="Producto.NombreProducto" id="NombreProducto" class="form-control" asp-items="ViewBag.NombreProducto"></select>
+                                <input type="hidden" id="NombreProductoValor" name="NombreProductoValor" />
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Producto.DescripcionProducto" class="control-label"></label>
+                                <select asp-for="Producto.DescripcionProducto" id="DescripcionProducto" class="form-control" asp-items="ViewBag.DescripcionProducto"></select>
+                                <input type="hidden" id="DescripcionProductoValor" name="DescripcionProductoValor" />
+                            </div>
 
 
                             <div class="form-group">
@@ -105,9 +109,7 @@
             </div>
         </div>
     </div>
-    <br />
-    <br />
-    <br />
+</div>
 
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -115,39 +117,102 @@
 
     <script>
         $(document).ready(function () {
-            $('#Producto_IdCategoria').change(function () {
+
+            //Asigna el primer valor para que no pueda enviarse vacio
+            $('#IdCategoria').prop('selectedIndex', 0);
+            var DescripcionInicialText = $('#IdCategoria option:selected').text();
+            $('#CategoriaValor').val(DescripcionInicialText);
+
+            $('#NombreProducto').prop('selectedIndex', 0);
+            var NombreProductoText = $('#NombreProducto option:selected').text();
+            $('#NombreProductoValor').val(NombreProductoText);
+
+            $('#DescripcionProducto').prop('selectedIndex', 0);
+            var DescripcionProductoText = $('#DescripcionProducto option:selected').text();
+            $('#DescripcionProductoValor').val(DescripcionProductoText);
+
+            $('#CostoProducto').prop('selectedIndex', 0);
+            var CostoProductoText = $('#CostoProducto option:selected').text();
+            $('#CostoProductoValor').val(CostoProductoText);
+
+
+
+            //Asigna valores en relacion de los elementos seleccionados
+
+            function seleccionarPrimerElemento() {
+                //Funciones Automaticas (Siempre se asigna la primera opcion en caso el usuario no lo cambie)
+                $('#DescripcionProducto').prop('selectedIndex', 0);
+                var DescripcionProductoText = $('#DescripcionProducto option:selected').text();
+                $('#DescripcionProductoValor').val(DescripcionProductoText);
+
+                $('#CostoProducto').prop('selectedIndex', 0);
+                var CostoProductoText = $('#CostoProducto option:selected').text();
+                $('#CostoProductoValor').val(CostoProductoText);
+            }
+
+
+            $('#IdCategoria').change(function () {
+                var CategoriaText = $(this).find("option:selected").text();
+                $('#CategoriaValor').val(CategoriaText);
+
                 var categoriaId = $(this).val();
                 $.ajax({
                     url: '@Url.Action("GetProductosByCategoria")',
                     type: 'GET',
                     data: { id: categoriaId },
                     success: function (data) {
-                        $('#Producto_NombreProducto').empty();
-                        $('#Producto_DescripcionProducto').empty();
-                        $('#Producto_CostoProducto').empty();
+                        $('#NombreProducto').empty();
+                        $('#DescripcionProducto').empty();
+                        $('#CostoProducto').empty();
                         $.each(data, function (index, item) {
-                            $('#Producto_NombreProducto').append($('<option>', { value: item.id, text: item.nombre }));
-                            $('#Producto_DescripcionProducto').append($('<option>', { value: item.id, text: item.descripcion }));
+                            $('#NombreProducto').append($('<option>', { value: item.id, text: item.nombre }));
+                            $('#DescripcionProducto').append($('<option>', { value: item.id, text: item.descripcion }));
+                            $('#CostoProducto').append($('<option>', { value: item.id, text: item.costo }));
                         });
+
+                        $('#NombreProducto').prop('selectedIndex', 0);
+                        var NombreProductoText = $('#NombreProducto option:selected').text();
+                        $('#NombreProductoValor').val(NombreProductoText);
+
+                        seleccionarPrimerElemento();
                     }
                 });
             });
 
-            $('#Producto_NombreProducto').change(function () {
+            $('#NombreProducto').change(function () {
+                var NombreProductoText = $(this).find("option:selected").text();
+                $('#NombreProductoValor').val(NombreProductoText);
+
                 var productoId = $(this).val();
                 $.ajax({
                     url: '@Url.Action("GetProductoDetalles")',
                     type: 'GET',
                     data: { id: productoId },
                     success: function (data) {
-                        $('#Producto_DescripcionProducto').empty();
-                        $('#Producto_CostoProducto').empty();
-                        $('#Producto_DescripcionProducto').append($('<option>', { value: data.id, text: data.descripcion }));
+                        $('#DescripcionProducto').empty();
+                        $('#CostoProducto').empty();
+                        $('#DescripcionProducto').append($('<option>', { value: data.id, text: data.descripcion }));
+                        $('#CostoProducto').append($('<option>', { value: data.id, text: data.costo }));
+
+                        seleccionarPrimerElemento();
                     }
                 });
             });
+
+            //Funciones por seleccion manual (Siempre se asigna la primera opcion en caso el usuario no lo cambie)
+            $('#DescripcionProducto').change(function () {
+                var selectedText = $(this).find("option:selected").text();
+                $('#DescripcionProductoValor').val(selectedText);
+            });
+
+            $('#CostoProducto').change(function () {
+                var selectedText = $(this).find("option:selected").text();
+                $('#CostoProductoValor').val(selectedText);
+            });
+
         });
     </script>
+
 
     <script>
         document.getElementById('unidadesVenta').addEventListener('input', calcularTotal);

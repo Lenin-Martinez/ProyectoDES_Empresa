@@ -21,14 +21,25 @@ namespace ProyectoDES_Empresa.Controllers
         }
 
         // GET: Productos
-        public async Task<IActionResult> Index(string textoABuscar)
+
+        public async Task<IActionResult> Index(string descripcionABuscar, string productoABuscar, string categoriaABuscar)
         {
             var productos = from p in _context.Productos.Include(p => p.Categoria)
                             select p;
 
-            if(!String.IsNullOrEmpty(textoABuscar))
+            if (!String.IsNullOrEmpty(descripcionABuscar))
             {
-                productos = productos.Where(p => p.DescripcionProducto.Contains(textoABuscar));
+                productos = productos.Where(p => p.DescripcionProducto.Contains(descripcionABuscar));
+            }
+
+            if (!String.IsNullOrEmpty(productoABuscar))
+            {
+                productos = productos.Where(p => p.NombreProducto.Contains(productoABuscar));
+            }
+
+            if (!String.IsNullOrEmpty(categoriaABuscar))
+            {
+                productos = productos.Where(p => p.Categoria.NombreCategoria.Contains(categoriaABuscar));
             }
 
             return View(await productos.ToListAsync());

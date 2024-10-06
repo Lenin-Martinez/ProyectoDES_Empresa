@@ -192,6 +192,17 @@ namespace ProyectoDES_Empresa.Controllers
                 return NotFound();
             }
 
+            // Verifica si el correo ya está registrado por otro usuario no permite ingresarlo
+            var usuarioConMismoCorreo = await _context.Usuarios
+                .Where(u => u.CorreoUsuario == model.CorreoUsuario && u.ID != model.ID)
+                .FirstOrDefaultAsync();
+
+            if (usuarioConMismoCorreo != null)
+            {
+                ViewBag.Error = "Error: El correo brindado ya posee cuenta registrada.";
+                return View(model);
+            }
+
             if (!string.IsNullOrEmpty(model.NuevaClaveUsuario) && model.NuevaClaveUsuario == model.ConfirmarNuevaClaveUsuario)
             {
                 // Verificar la contraseña antigua
@@ -202,13 +213,13 @@ namespace ProyectoDES_Empresa.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "La contraseña antigua es incorrecta.");
+                    ViewBag.Error = "Error: La contraseña antigua es incorrecta.";
                     return View(model);
                 }
             }
             else if (!string.IsNullOrEmpty(model.NuevaClaveUsuario))
             {
-                ModelState.AddModelError(string.Empty, "Las nuevas contraseñas no coinciden.");
+                ViewBag.Error = "Error: Las nuevas contraseñas no coinciden.";
                 return View(model);
             }
 
