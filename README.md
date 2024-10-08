@@ -49,3 +49,5 @@ La problematica solucionada, es la gestion de estos procesos efectuados en el am
 	https://trello.com/invite/b/66c2be4e0c25c408fffe7874/ATTI1f6599702c7c05f0ed15832b6cabd99705C25798/proyectodesempresa
 
 
+* Instalador
+  	https://mega.nz/file/WW521TAL#3wA8L5CIXk1HyDSyTbUSIay24ZSXqzpfg19Z18yfc_o
